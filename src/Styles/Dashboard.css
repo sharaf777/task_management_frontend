@@ -1,0 +1,21 @@
+.create {
+    background-color: #424cbfa9;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 10px;
+    /* // outline: 0; */
+    text-align: center;
+    width: 20%;
+      
+}
+.create a{
+    text-decoration: none;
+    color: #eee;
+}
+.create:active {
+    background-color: #06b;
+}
