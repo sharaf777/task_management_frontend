@@ -1,50 +1,26 @@
-.card,
-.card-container {
-    display: flex;
-
-}
-/* .card-container {
-    font-size: 1rem;
-    margin-top: 50px;
-} */
-.card-container {
+.Procard-container {
+    display: inline-flex;
     flex-direction: column;
     min-height: 100vh;
-    /* margin-top: 50px; */
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
     font-family: Roboto, sans-serif;
     line-height: 1.5;
     color: #212529;
     background-color: #f9fafc;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-}
-.card {
-    /* position: relative; */
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid #00000020;
-    border-radius: 0.8rem;
-}
-.card-footer {
-   
-    display: flex;
-        justify-content: space-between;
-        padding: 1.5rem;
-        background-color: transparent;
-        border-top: 0;
-}
-.card>hr {
-    margin-right: 0;
-    margin-left: 0;
+    max-width: 100%;
 }
 
-.card-body {
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1rem 1.25rem;
+.Procard {
+    flex: 0 0 calc(33.3333% - 20px);
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    background-color: #fff;
+    border: 1px solid #00000020;
+    border-radius: 0.8rem;
+    box-sizing: border-box;
 }
 
 .del-icon {
@@ -54,28 +30,72 @@
 .del-icon:hover {
     color: #e71111;
 }
-.card-title {
+.Procard-title {
     line-height: 1.5;
     margin-bottom: 0.5rem;
-    font-size: 20px;
+    font-size: 30px;
     font-family: Roboto;
-    font-weight: 500;
+    font-weight: 600;
     font-style: normal;
 }
-.card-subtitle {
-    font-weight: 400;
-    margin-top: 0.2rem;
+.Procard>hr {
+    margin-right: 0;
+    margin-left: 0;
 }
-.card-columns {
+.Procard-body .Procard-text {
+   
+    margin-top: 0.2rem;
+    line-height: 1.5;
+        margin-bottom: 0.5rem;
+        font-size: 30px;
+        font-family: Roboto;
+        font-weight: 500;
+        font-style: normal;
+}
+.Procard-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem 1.25rem;
+}
+.Procard-columns {
     padding-top: 0px;
 }
-
-.card-columns .card {
+.Procard-columns .Procard {
     margin-bottom: 12px !important;
 }
+.Procard-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background-color: transparent;
+    border-top: 0;
+}
+.Procard-footerleft {
+    display: flex;
+    align-items: left;
+    margin-right: 35px;
+}
 
-@media (min-width: 420px) {
-    .card-columns {
+.Procard-footerright {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+    justify-content: end;
+}
+
+.footerright a {
+    transition: transform 0.3s ease;
+    font-size: 24px;
+}
+
+.footerright a:hover {
+    color: rgb(8, 120, 249);
+    transform: scale(1.2);
+}
+
+/* @media (min-width: 420px) {
+    .Procard-columns {
         column-count: 2;
         column-gap: 0.5rem;
         orphans: 2;
@@ -84,31 +104,31 @@
 }
 
 @media (min-width: 576px) {
-    .card-columns .card {
+    .Procard-columns .Procard {
         display: inline-block;
         width: 100%;
     }
 
-    .card-columns {
+    .Procard-columns {
         column-count: 3;
         column-gap: 0.5rem;
         orphans: 4;
         widows: 4;
     }
 
-    .container {
+    .Procard-container {
         max-width: 98%;
     }
 }
+
 @media (min-width: 796px) {
-    .card-columns {
+    .Procard-columns {
         column-count: 3;
         column-gap: 1.125rem;
         orphans: 4;
         widows: 4;
     }
-}
-
+} */
 @media (min-width: 966px) {
     .card-columns {
         column-count: 3;
@@ -129,26 +149,4 @@
         orphans: 1;
         widows: 1;
     }
-}
-
-.footerleft {
-    display: flex;
-    align-items: center;
-}
-
-.footerright {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    gap: 1rem;
-    justify-content: end;
-}
-.footerright a {
-    transition: transform 0.3s ease;
-    font-size: 24px;
-}
-
-.footerright a:hover {
-    color: rgb(8, 120, 249);
-    transform: scale(1.2);
 }

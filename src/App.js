@@ -24,6 +24,7 @@ function App() {
              <Route index element={<Project/>}/>
              <Route path="class" element={<Class />} />
              <Route path="task" element={<Task />} />
+             <Route path="/head" element={<Header />} />
           </Route>
           <Route path="/head" element={<Header />} />
           <Route path="/Create-manager" element={<ManagerRegister />} />

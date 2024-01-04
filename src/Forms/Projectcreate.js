@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import '../Styles/Projectcreate.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-//import SearchManager from '../Components/SearchManger';
+import SearchManager from '../Components/SearchManger';
 
 function Projectcreate() {
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedManagers, setSelectedManagers] = useState([]); // State to store selected managers
+  const [selectedManagers, setSelectedManagers] = useState([]);
   const navigate = useNavigate();
 
   const handleManagerSelection = (selectedManager) => {
@@ -17,10 +17,26 @@ function Projectcreate() {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
-      // Your project creation logic here
+      // Prepare data to be sent to the backend
+      const requestData = {
+        name: projectName,
+        description: description,
+        projectManagers: selectedManagers.map(manager => manager.username),
+      };
 
-      // Example: Log the selected managers
-      console.log('Selected Managers:', selectedManagers);
+      // Make a request to the backend to create a new project
+      const adminToken = localStorage.getItem('adminToken');
+      console.log('admintoken', adminToken);
+      const config = {
+        headers: {
+          Authorization: adminToken,
+        },
+      };
+
+      const response = await axios.put('http://localhost:5001/projects/create', requestData, config);
+
+      // Handle successful project creation
+      console.log('Project created successfully:', response.data);
 
       // Reset form fields and selected managers after project creation
       setProjectName('');
@@ -28,8 +44,10 @@ function Projectcreate() {
       setSelectedManagers([]);
 
       // Redirect or perform any other actions after project creation
+      navigate('/'); // Example: Redirect to the dashboard page
     } catch (error) {
       console.error('Error during project creation:', error);
+
       // Handle errors as needed
     }
   };
@@ -69,8 +87,8 @@ function Projectcreate() {
             Add small description
           </label>
         </div>
-        <div className="input-container ic2">
-          {/* Use the SearchManager component for manager search */}
+        {/* <div className="input-container ic2">
+         
            <input
             id="description"
             className="input"
@@ -82,14 +100,14 @@ function Projectcreate() {
           />
           <div className="cut">Manager</div>
           <label className="placeholder">Add manager</label>
-        </div>
-        {/* <SearchManager handleManagerSelection={handleManagerSelection} /> */}
-        <div className="selected-managers">
+        </div>  */}
+        <SearchManager handleManagerSelection={handleManagerSelection} /> 
+        {/* <div className="selected-managers">
           <h2>Selected Managers</h2>
           {selectedManagers.map((manager) => (
             <p key={manager._id}>{manager.username}</p>
           ))}
-        </div>
+        </div> */}
         <button type="submit" className="submit" onClick={handleCreateProject}>
           Create
         </button>
