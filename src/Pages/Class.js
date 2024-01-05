@@ -16,7 +16,7 @@ function Class() {
     fontSize: '18px',
     height: '50px',
     marginTop: '0px',
-    margingBottom:'10px',
+    margingBottom:'20px',
     marginLeft:'0px',
     textAlign: 'center',
     alignitem:'center',
@@ -34,6 +34,9 @@ function Class() {
           >
              Create New class <AddIcon/>
           </Button> 
+          <Button style={createButtonStyle} component={Link}to="/Create-user">
+            Create User<AddIcon/>
+          </Button>
           <Projectlist/>
         </Grid>
         <Grid item xs={9}>

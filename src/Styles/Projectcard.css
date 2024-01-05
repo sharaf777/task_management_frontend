@@ -1,7 +1,6 @@
 .Procard-container {
     display: inline-flex;
     flex-direction: column;
-    min-height: 100vh;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
@@ -11,6 +10,10 @@
     color: #212529;
     background-color: #f9fafc;
     max-width: 100%;
+}
+.Procard-container:hover {
+    transform: scale(1.05);
+    transition: 0.5s;
 }
 
 .Procard {
@@ -46,23 +49,24 @@
    
     margin-top: 0.2rem;
     line-height: 1.5;
-        margin-bottom: 0.5rem;
-        font-size: 30px;
-        font-family: Roboto;
-        font-weight: 500;
-        font-style: normal;
+    margin-bottom: 0.5rem;
+    font-size: 15px;
+    font-family: Roboto;
+    font-weight: 500;
+    font-style: normal;
 }
 .Procard-body {
     flex: 1 1 auto;
     min-height: 1px;
     padding: 1rem 1.25rem;
 }
-.Procard-columns {
+/* .Procard-columns {
+    
     padding-top: 0px;
-}
-.Procard-columns .Procard {
+} */
+/* .Procard-columns .Procard {
     margin-bottom: 12px !important;
-}
+} */
 .Procard-footer {
     display: flex;
     justify-content: space-between;
@@ -75,6 +79,33 @@
     align-items: left;
     margin-right: 35px;
 }
+.Procard-progress {
+    background: #adb5f8;
+    border-radius: 8px;
+    align-items: center;
+    position: relative;
+    display: flex;
+    height: 21px;
+    width: 90px;
+}
+
+.Procard-progress-value {
+    animation: load 3s normal forwards;
+    border-radius: 7px;
+    background: #424CBF;
+    height: 20px;
+    width: 0;    
+}
+
+ @keyframes load {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 68%;
+    }
+} 
 
 .Procard-footerright {
     display: flex;
@@ -128,7 +159,7 @@
         orphans: 4;
         widows: 4;
     }
-} */
+} 
 @media (min-width: 966px) {
     .card-columns {
         column-count: 3;
@@ -149,4 +180,4 @@
         orphans: 1;
         widows: 1;
     }
-}
+} */

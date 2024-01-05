@@ -37,6 +37,7 @@ function Projectcreate() {
 
       // Handle successful project creation
       console.log('Project created successfully:', response.data);
+      alert('Project created successfully!');
 
       // Reset form fields and selected managers after project creation
       setProjectName('');

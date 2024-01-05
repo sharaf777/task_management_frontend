@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Projectcard from '../Components/Projectcard';
-import Projectcard2 from '../Components/projectcard2';
-import Classcard from '../Components/Classcard';
+import Managerlist from '../Components/Managerlist';
 import { Link } from 'react-router-dom';
 import { Grid, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -58,14 +57,14 @@ function Project() {
           <Button style={createButtonStyle} component={Link}to="/Create-manager">
             Create Manager<AddIcon/>
           </Button>
-          <Button style={createButtonStyle} component={Link}to="/create-project">
+          <Button style={createButtonStyle} component={Link}to="/Create-user">
             Create User<AddIcon/>
           </Button>
-         
+          <Managerlist/>
 
         </Grid>
         <Grid item xs={9}>
-          <Grid item xs={8}><Projectcard/></Grid>
+          <Projectcard/>
           {/* <Grid container spacing={2}>
 
             <Grid item xs={4}><Projectcard2/></Grid>

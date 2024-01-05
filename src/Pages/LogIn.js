@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/LogIn.css';
+import { useToast } from "@chakra-ui/toast";
 
 function LogIn() {
   const [loginData, setLoginData] = useState({
@@ -9,7 +10,9 @@ function LogIn() {
     password: '',
   });
   const [error, setError] = useState('');
+  const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,6 +20,7 @@ function LogIn() {
   };
 
   const handleLogin = async (e) => {
+     setLoading(true);
     e.preventDefault();
     try {
       const url = "http://localhost:5001/auth/adminlogin";
@@ -27,7 +31,19 @@ function LogIn() {
       localStorage.setItem('adminToken', res.data.token);
 
       // Navigate to the home page
-      navigate('/');
+      toast({
+        title: "Error Occured!",
+        description: "Failed to Load the chats",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+       
+      setTimeout(() => {
+        setLoading(false);
+          navigate('/');
+        }, 2000);
     } catch (error) {
       console.error('Error during login:', error);
       if (

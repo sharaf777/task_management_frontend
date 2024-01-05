@@ -1,26 +1,86 @@
-import React from 'react';
-import '../Styles/Projectcreate.css'
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import '../Styles/Projectcreate.css';
+import axios from 'axios';
+import SearchManager from '../Components/SearchManger';
 
-function Addmanager() {
+function AddManager() {
+  const [projectName, setProjectName] = useState('');
+  const [selectedManagers, setSelectedManagers] = useState([]);
+  const location = useLocation('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const projectNameParam = new URLSearchParams(location.search).get('projectName');
+    setProjectName(projectNameParam);
+  }, [location.search]);
+
+  const handleAddManagerProject = async (selectedManager) => {
+    try {
+      const projectId = new URLSearchParams(location.search).get('projectId');
+      const adminToken = localStorage.getItem('adminToken');
+
+      console.log('Request Payload:', {
+  projectManagerNames: [selectedManager.username],
+});
+
+      if (selectedManager) {
+        await axios.post(
+          `http://localhost:5001/projects/${projectId}/addProjectManager`,
+          { projectManagerNames: [selectedManager.username] },
+          {
+            headers: {
+              Authorization: adminToken,
+            },
+          }
+        );
+
+        // Handle success, e.g., show a success message or redirect to another page
+        console.log('Project manager added successfully');
+        alert('Project manager added successfully');
+
+        navigate('/');
+      } else {
+        console.error('No manager selected');
+      }
+    } catch (error) {
+      console.error('Error adding project manager:', error);
+      // Handle error, e.g., show an error message to the user
+    }
+  };
+
+  const handleManagerSelection = (selectedManager) => {
+    setSelectedManagers([...selectedManagers, selectedManager]);
+  };
   return (
-   <div className='form-body'>
-        <div class="form">
-          <div class="form-title">Add manager</div>
-          <div class="form-subtitle">Add your project manager!</div>
-          <div class="input-container ic1">
-            <input id="firstname" class="input" type="text" placeholder=" " />
-            <div class="cut">Name</div>
-            <label for="firstname" class="placeholder">Project name</label>
-          </div>
-          <div class="input-container ic2">
-            <input id="email" class="input" type="text" placeholder=" " />
-            <div class="cut ">Project manager</div>
-            <label for="email" class="placeholder">Add project manager</label>
-          </div>
-          <button type="text" class="submit">Add</button>
+    <div className='form-body'>
+      <div className="form">
+        <div className="form-title">Add Manager</div>
+        <div className="form-subtitle">Add manager to {projectName}</div>
+
+        <div className="input-container ic2">
+          <input
+            id="projectName"
+            className="input"
+            type="text"
+            placeholder=" "
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+          />
+          <div className="cut ">Project name</div>
+          <label htmlFor="projectName" className="placeholder">
+            Add project name
+          </label>
         </div>
+
+         <SearchManager handleManagerSelection={handleManagerSelection} />
+
+        <button type="button" className="submit" onClick={() => selectedManagers.length > 0 && handleAddManagerProject(selectedManagers[0])}>
+          Add
+        </button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Addmanager
+export default AddManager;

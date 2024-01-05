@@ -26,7 +26,7 @@ function SignUp() {
       console.log(res);
       
       // Show success alert
-      //alert('Signup successful!');
+      alert('Signup successful!');
       
       // Navigate to the home page
       navigate("/login");
