@@ -58,24 +58,13 @@
     padding: 4px 20px 0;
     width: 100%;
 }
-select{
-    background-color: #bababa;
-        border-radius: 12px;
-        border: 0;
-        box-sizing: border-box;
-        color: #eee;
-        font-size: 18px;
-        height: 80%;
-        outline: 0;
-        padding: 4px 20px 0;
-        width: 100%;
-}
+
 .cut {
     background-color: #424cbf;
-    color:#fff;
+    color: #fff;
     border-radius: 10px;
     height: 20px;
-    left:10px;
+    left: 10px;
     font-size: 13px;
     position: absolute;
     top: -13px;
@@ -118,6 +107,40 @@ select{
 .input:focus~.placeholder {
     color: #fcfafb00;
 }
+/* Date styles */
+[type="date"] {
+    background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
+}
+
+[type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+
+.datepicker-container {
+    padding: 0em;
+    background: #e5e5e5;
+    font: 13px/1.4 Geneva, 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    border-radius: 12px;
+}
+
+.datepicker-container label {
+    display: block;
+}
+
+.datepicker-container input {
+    border: 0px solid #c4c4c4;
+    border-radius: 12px;
+    background-color: #bababa;
+    color: #eee;
+    padding: 4px 15px;
+    box-shadow: inset 0 3px 6px rgba(0, 1, 1, 0.1);
+    width: 100%;
+}
 
 .submit {
     background-color: #424cbf;
@@ -137,7 +160,3 @@ select{
 .submit:active {
     background-color: #06b;
 }
-
-
-
-

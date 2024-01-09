@@ -8,9 +8,10 @@ function LogIn() {
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
+    userType: 'manager', // Default user type
   });
   const [error, setError] = useState('');
-  const [Loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -19,50 +20,49 @@ function LogIn() {
     setLoginData({ ...loginData, [name]: value });
   };
 
-  const handleLogin = async (e) => {
-     setLoading(true);
-    e.preventDefault();
-    try {
-      const url = "http://localhost:5001/auth/adminlogin";
-      const res = await axios.post(url, loginData);
-      console.log(res.data);
+const handleLogin = async () => {
+  setLoading(true);
+  try {
+    const url = `http://localhost:5001/auth/${loginData.userType}login`;
+    const res = await axios.post(url, loginData);
+
+    
+   console.log(res.data);
 
       // Save the token to localStorage or sessionStorage
-      localStorage.setItem('adminToken', res.data.token);
+      localStorage.setItem('authToken', res.data.token);
 
-      // Navigate to the home page
-      toast({
-        title: "Error Occured!",
-        description: "Failed to Load the chats",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-left",
-      });
-       
-      setTimeout(() => {
-        setLoading(false);
-          navigate('/');
-        }, 2000);
-    } catch (error) {
-      console.error('Error during login:', error);
-      if (
-        error.response &&
-        error.response.status === 401
-      ) {
-        setError('Invalid credentials');
-      } else {
-        setError('Login failed. Please try again.');
-      }
+    toast({
+      title: "Success",
+      description: "Login Successful!",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "bottom-left",
+    });
+
+    setTimeout(() => {
+      setLoading(false);
+      navigate('/');
+    }, 2000);
+  } catch (error) {
+    console.error(`Error during login:`, error);
+    if (error.response && error.response.status === 401) {
+      setError('Invalid credentials');
+    } else {
+      setError(`${loginData.userType} login failed. Please try again.`);
     }
-  };
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="container-body">
       <div className="container-login">
-        <div className="title">Admin LogIn</div>
+        <div className="title">Login</div>
         <div className="content">
-          <form onSubmit={handleLogin}>
+          <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
             <div className="user-details">
               <div className="input-boxLogin">
                 <span className="details">Username</span>
@@ -86,16 +86,21 @@ function LogIn() {
                   required
                 />
               </div>
+              <div className="input-boxLogin">
+                <span className="details">User Type</span>
+                <select
+                  name="userType"
+                  value={loginData.userType}
+                  onChange={handleChange}
+                >
+                  <option value="admin">Admin</option>
+                  <option value="manager">Manager</option>
+                </select>
+              </div>
             </div>
             <div className="button">
               <input type="submit" value="LogIn" />
-              <p className="centered-text">
-                Not a member{' '}
-                <Link className='link' to="/signUp">
-                  Register
-                </Link>{' '}
-                Now
-              </p>
+              {/* ... other input fields ... */}
             </div>
           </form>
           {error && <p className="error-message">{error}</p>}

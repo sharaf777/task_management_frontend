@@ -1,11 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect}from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Grid, Button } from '@mui/material';
 import Classlist from '../Components/Classlist';
 import AddIcon from '@mui/icons-material/Add';
 import Taskcard from '../Components/Taskcard';
+//import { useEffect } from 'react';
 
-function Task() {
+const Task = (props) =>  {
+  const location = useLocation();
+  const projectId = new URLSearchParams(location.search).get('projectId');
+  const classId = new URLSearchParams(location.search).get('classId');
+
     const createButtonStyle = {
     backgroundColor: '#424cbf',
     borderRadius: '12px',
@@ -25,19 +30,23 @@ function Task() {
   createButtonStyle[':hover'] = {
     backgroundColor: '#424cbfa9',
   };
+   useEffect(() => {
+  console.log('project id in class', projectId);
+   console.log('class id in class', classId);
+
+  
+  },[]);
   return (
      <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Grid container spacing={2}>
         <Grid item xs={3}>
-          <Button
-            style={createButtonStyle}
-          >
+          <Button style={createButtonStyle} component={Link}  to={`/Create-task?projectId=${projectId}&classId=${classId}`}  onClick={() => console.log('Clicked - projectId:', projectId, 'classId:', classId)}>
              Create New task <AddIcon/>
           </Button> 
-          <Classlist/>
+          <Classlist projectId={projectId} classId={classId}/>
         </Grid>
         <Grid item xs={9}>
-          <Taskcard/>
+          <Taskcard projectId={projectId} classId={classId}/>
         </Grid>
       </Grid>
     </div>

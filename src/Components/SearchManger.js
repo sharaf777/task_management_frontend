@@ -21,7 +21,7 @@ const SearchManager = (props) => {
   const { _id, username } = selectedManager;
 
   try {
-    const adminToken = localStorage.getItem('adminToken');
+    const adminToken = localStorage.getItem('authToken');
     const adminNameResponse = await axios.get('http://localhost:5001/auth/adminname', {
       headers: {
         Authorization: adminToken,
@@ -56,7 +56,7 @@ const SearchManager = (props) => {
     e.preventDefault();
     try {
       const url = `http://localhost:5001/auth/getprojectManager?search=${search}`;
-      const adminToken = localStorage.getItem('adminToken');
+      const adminToken = localStorage.getItem('authToken');
       const config = {
         headers: {
           Authorization: adminToken,
@@ -134,7 +134,7 @@ const SearchManager = (props) => {
               required
             />
           </div>
-          <div className="Search-button" style={{ width: '30%', background: "#424cbf", border: '0', boxSizing: 'border-box', color: '#eee', fontSize: '18px', height: '100%', padding: '18px 28px 0', height: '40px', alignItems: 'center' }} onClick={handleSubmit}>
+          <div className="Search-button" style={{ width: '30%', background: "#424cbf", border: '0', boxSizing: 'border-box', color: '#eee', fontSize: '18px', height: '100%', padding: '9px 28px 0', height: '40px', alignItems: 'center' }} onClick={handleSubmit}>
             <SearchIcon />
           </div>
         </div>

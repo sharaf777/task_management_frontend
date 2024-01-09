@@ -22,7 +22,7 @@ function UserRegister() {
       const url = "http://localhost:5001/auth/userregister";
 
       // Get the admin token from localStorage or wherever it is stored
-      const adminToken = localStorage.getItem('adminToken');
+      const adminToken = localStorage.getItem('authToken');
 
       // Set the adminToken in the request headers for authentication
       const config = {

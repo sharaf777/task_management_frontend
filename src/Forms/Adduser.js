@@ -1,26 +1,123 @@
-import React from 'react';
-import '../Styles/Projectcreate.css'
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import '../Styles/Projectcreate.css';
+import axios from 'axios';
+import SearchUser from '../Components/Searchuser';
 
-function Usercreate() {
+function AddUserToClass() {
+  const [className, setClassName] = useState('');
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const location = useLocation('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const classNameParam = new URLSearchParams(location.search).get('className') || '';
+    setClassName(classNameParam);
+    const projectId = new URLSearchParams(location.search).get('projectId');
+      const classId = new URLSearchParams(location.search).get('classId');
+      const adminToken = localStorage.getItem('authToken');
+      console.log('projectID', projectId);
+      console.log('classID', classId);
+      console.log('Selected Users:', selectedUsers);
+
+  }, [location.search]);
+
+const handleAddUsersToClass = async (selectedUser) => {
+  console.log('handleAddUsersToClass called');
+  try {
+    const projectId = new URLSearchParams(location.search).get('projectId');
+    const classId = new URLSearchParams(location.search).get('classId');
+    const adminToken = localStorage.getItem('authToken');
+    console.log('projectID', projectId);
+    console.log('classID', classId);
+    console.log('Request Payload:', {
+      addedUsers: [selectedUser.username],
+    });
+
+    if (selectedUser) {
+      const response = await axios.put(
+        `http://localhost:5001/class/${projectId}/${classId}/addUsers`,
+        { addedUsers: [selectedUser.username] },
+        {
+          headers: {
+            Authorization: adminToken,
+          },
+        }
+      );
+
+      // Log the response from the server
+      console.log('Response from server:', response.data);
+
+      // Handle success, e.g., show a success message or redirect to another page
+      console.log('Users added to class successfully');
+      alert('Users added to class successfully');
+
+      navigate('/class?projectId=${yourProjectId}');
+    } else {
+      console.error('No user selected');
+    }
+  } catch (error) {
+    console.error('Error adding users to class:', error);
+    // Handle error, e.g., show an error message to the user
+  }
+};
+
+
+  const handleUserSelection = (selectedUser) => {
+    setSelectedUsers([...selectedUsers, selectedUser]);
+    console.log('Selected Users:', selectedUsers);
+
+  };
+
   return (
-   <div className='form-body'>
-        <div class="form">
-          <div class="form-title">User Registeration </div>
-          <div class="form-subtitle">Add your project user!</div>
-          <div class="input-container ic1">
-            <input id="firstname" class="input" type="text" placeholder=" " />
-            <div class="cut">Class</div>
-            <label for="firstname" class="placeholder">CLass name</label>
-          </div>
-          <div class="input-container ic2">
-            <input id="email" class="input" type="text" placeholder=" " />
-            <div class="cut ">User</div>
-            <label for="email" class="placeholder">Add User</label>
-          </div>
-          <button type="text" class="submit">Add</button>
+    <div className='form-body'>
+      <div className="form">
+        <div className="form-title">Add User to Class</div>
+        <div className="form-subtitle">Add user to {className}</div>
+
+        {/* Input for project name (you can remove this if not needed) */}
+        <div className="input-container ic2">
+          <input
+            id="className"
+            className="input"
+            type="text"
+            placeholder=" "
+            value={className}
+            onChange={(e) => setClassName(e.target.value)}
+          />
+          <div className="cut ">Class name</div>
+          <label htmlFor="className" className="placeholder">
+            Add class name
+          </label>
         </div>
+
+        {/* SearchUser component to select users */}
+        
+      <SearchUser handleUserSelection={handleUserSelection} />
+
+        {/* Button to add selected users to the class */}
+       <button
+          type="button"
+          className="submit"
+          onClick={async () => {
+  try {
+    console.log('Button clicked');
+    if (selectedUsers.length > 0) {
+      await handleAddUsersToClass(selectedUsers[0]);
+    }
+  } catch (error) {
+    console.error('Error in onClick handler:', error);
+  }
+}}
+
+        >
+          Add
+        </button>
+
+
+      </div>
     </div>
-  )
+  );
 }
 
-export default Usercreate
+export default AddUserToClass;

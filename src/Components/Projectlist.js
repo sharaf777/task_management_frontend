@@ -1,74 +1,102 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../Styles/Projectlist.css';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-function Projectlist() {
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import axios from 'axios';
+
+const Projectlist = ({ projectId }) => {
+  const [projectManagers, setProjectManagers] = useState([]);
+  const location = useLocation();
+
+  useEffect(() => {
+    const fetchProjectManagers = async () => {
+      try {
+      const authToken = localStorage.getItem('authToken');
+      console.log('authToken:', authToken);
+
+        if (projectId) {
+          const response = await axios.get(`http://localhost:5001/projects/${projectId}/getAllManagers`, {
+            headers: {
+              Authorization: authToken,
+            },
+          });
+
+          setProjectManagers(response.data.projectManagers);
+        } else {
+          console.log('Project ID is null or undefined. Skipping API call.');
+        }
+      } catch (error) {
+        console.error('Error fetching project managers:', error);
+      }
+    };
+
+    fetchProjectManagers();
+  }, [projectId]); // Include projectId in the dependency array to fetch managers when projectId changes
+
+const handleRemoveManager = async (managerId) => {
+  try {
+    const adminToken = localStorage.getItem('authToken');
+    console.log('Admin Token:', adminToken);
+
+    console.log('Before axios.delete');
+
+    await axios.delete(
+      `http://localhost:5001/projects/${projectId}/removeProjectManager`,
+      {
+        headers: {
+          Authorization: adminToken,
+        },
+        data: {
+          projectManagerNames: [managerId],
+        },
+      }
+    );
+
+    console.log('After axios.delete');
+
+    // Manually filter out the removed manager from the state
+    setProjectManagers((prevManagers) =>
+      prevManagers.filter((manager) => manager._id !== managerId)
+    );
+  } catch (error) {
+    console.error('Error removing project manager:', error);
+    // Handle error, e.g., show an error message to the user
+  }
+};
+
+
+
   return (
     <div className='body-list'>
-        <section class="app-list">
-        <aside class="sidebar">
-                <header>
-                Project Name
-            </header>
-            <nav class="sidebar-nav">
-        
+      <section className="app-list">
+        <aside className="sidebar">
+          <header>
+            Project Name
+          </header>
+          <nav className="sidebar-nav">
             <ul>
-                <li>
-                <a href="#"><i class="ion-bag"></i> <span>Project Mangers</span></a>
-                <ul class="nav-flyout">
-                    <li>
-                    <a href="#"><i class="ion-ios-color-filter-outline"></i>Manger1</a>
+              <li>
+                <div className="sidebar-navItem">Project Managers</div>
+                <ul className="nav-flyout">
+                  {projectManagers.map((manager) => (
+                    <li key={manager._id}>
+                      <a href="#">
+                        <div className="sidebar-navName">{manager.username} </div>
+                        <div className="sidebar-navIcon" onClick={() => handleRemoveManager(manager._id)}>
+                          <PersonRemoveIcon />
+                        </div>
+                      </a>
                     </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-clock-outline"></i>Manger2</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-android-star-outline"></i>Manager3</a>
-                    </li>
+                  ))}
                 </ul>
-                </li>
-                <li>
-                <a href="#"><i class="ion-ios-settings"></i> <span class="">Classes</span></a>
-                <ul class="nav-flyout">
-                    <li>
-                    <a href="#"><i class="ion-ios-alarm-outline"></i>class1</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-camera-outline"></i>Class2</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-chatboxes-outline"></i>class3</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-cog-outline"></i>class4</a>
-                    </li>
-                </ul>
-                </li>
-                <li>
-                <a href="#"><i class="ion-ios-briefcase-outline"></i> <span class="">Users</span></a>
-                <ul class="nav-flyout">
-                    <li>
-                    <a href="#"><i class="ion-ios-flame-outline"></i>User1</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-lightbulb-outline"></i>User2</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-location-outline"></i>User3</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-locked-outline"></i>User4</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-navigate-outline"></i>User5</a>
-                    </li>
-                </ul>
-                </li>
+              </li>
             </ul>
-            </nav>
+          </nav>
         </aside>
-        </section>
+      </section>
     </div>
-  )
-}
+  );
+};
 
-export default Projectlist
+export default Projectlist;

@@ -25,7 +25,7 @@ function Projectcreate() {
       };
 
       // Make a request to the backend to create a new project
-      const adminToken = localStorage.getItem('adminToken');
+      const adminToken = localStorage.getItem('authToken');
       console.log('admintoken', adminToken);
       const config = {
         headers: {

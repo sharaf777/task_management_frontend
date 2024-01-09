@@ -8,11 +8,13 @@ function Navbar() {
   const navigate =useNavigate();
 
   useEffect(() => {
-    const adminToken = localStorage.getItem('adminToken');
-    if (adminToken) {
-      axios.get('http://localhost:5001/auth/adminname', {
+    const authToken = localStorage.getItem('authToken');
+    console.log('authToken:', authToken);
+
+    if (authToken) {
+      axios.get('http://localhost:5001/auth/username', {
         headers: {
-          Authorization: adminToken,
+          Authorization: authToken,
         },
       })
       .then(response => {
@@ -26,9 +28,9 @@ function Navbar() {
 
   const handleLogout = () => {
     // Implement logout logic, clear the token, redirect, etc.
-    console.log('Before logout:', localStorage.getItem('adminToken'));
-  localStorage.removeItem('adminToken');
-  console.log('After logout:', localStorage.getItem('adminToken'));
+    console.log('Before logout:', localStorage.getItem('authToken'));
+  localStorage.removeItem('authToken');
+  console.log('After logout:', localStorage.getItem('authToken'));
     navigate('/head')
   };
 

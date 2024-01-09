@@ -8,25 +8,31 @@ import axios from 'axios';
 //import SearchManager from '../Components/SearchManger';
 
 function Project() {
+ 
+
   const [projects, setProjects] = useState([]);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const adminToken = localStorage.getItem('adminToken');
-        const response = await axios.get('http://localhost:5001/projects/', {
-          headers: {
-            Authorization: adminToken,
-          },
-        });
-        setProjects(response.data.projects);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      }
-    };
+useEffect(() => {
+  const fetchProjects = async () => {
+    try {
+      const authToken = localStorage.getItem('authToken');
+      console.log('authToken:', authToken);
 
-    fetchProjects();
-  }, []);
+      const response = await axios.get('http://localhost:5001/projects/', {
+        headers: {
+          Authorization: authToken,
+        },
+      });
+      console.log("response data", response.data.projects)
+      setProjects(response.data.projects);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
+
+  fetchProjects();
+}, []);
+
   
     const createButtonStyle = {
     backgroundColor: '#424cbf',

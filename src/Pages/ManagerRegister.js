@@ -22,12 +22,13 @@ function ManagerRegister() {
       const url = "http://localhost:5001/auth/managerregister";
 
       // Get the admin token from localStorage or wherever it is stored
-      const adminToken = localStorage.getItem('adminToken');
+       const authToken = localStorage.getItem('authToken');
+      console.log('authToken:', authToken);
 
       // Set the adminToken in the request headers for authentication
       const config = {
         headers: {
-          Authorization: adminToken, // No "Bearer" prefix here
+          Authorization: authToken, // No "Bearer" prefix here
         },
       };
 

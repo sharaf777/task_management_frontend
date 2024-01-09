@@ -53,6 +53,7 @@ a {
     position: fixed;
     background-color: #19222a;
     height: 100%;
+    width: 100%;
     font-weight: 400;
     font-size: 1.2em;
     overflow: auto;
@@ -75,24 +76,50 @@ a {
     display: inline-block;
     width: 100%;
 }
-
+.sidebar-nav ul li .sidebar-navItem {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.75em;
+    padding: 1.05em 0.2em;
+    margin-left: 0.5em;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 .sidebar-nav ul li a {
     color: rgba(255, 255, 255, 0.9);
     font-size: 0.75em;
-    padding: 1.05em 1em;
+    padding: 1.05em 0.2em;
+    margin-left: -0.5em;
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
 }
 
 .sidebar-nav ul li a:hover {
     background-color: rgba(0, 0, 0, 0.9);
     transition: all 0.6s ease;
 }
-
 .sidebar-nav ul li i {
-    font-size: 1.8em;
-    padding-right: 0.5em;
+    font-size: 1.2em;
+    padding-right: 2.5em; 
     width: 9em;
+    margin-left: 1px;
+    display: inline;
+    vertical-align: middle;
+}
+.sidebar-nav ul li .sidebar-navName {
+    font-size: 1.2em;
+    /* padding-right: 2.5em; */
+    width: 9em;
+    margin-left: 15px;
+    display: inline;
+    vertical-align: middle;
+}
+.sidebar-nav ul li .sidebar-navIcon {
+    font-size: 1.8em;
+    /* padding-right: 0.5em; */
+    /* margin-top: 10px; */
+    /* width: 9em; */
     display: inline;
     vertical-align: middle;
 }
@@ -115,7 +142,8 @@ a {
     background-color: #080D11;
     z-index: 9;
     left: 2.5em;
-    top: 0;
+    top: 1em;
+    margin-top: 20px;
     height: 100vh;
     transform: translateX(100%);
     transition: all 0.5s ease;

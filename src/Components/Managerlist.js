@@ -4,37 +4,46 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios';
 
 function Managerlist() {
-    const [projectManagers, setProjectManagers] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [projectManagers, setProjectManagers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjectManagers = async () => {
       try {
-        const adminToken = localStorage.getItem('adminToken');
-        console.log('admintoken',adminToken)
-        const url = 'http://localhost:5001/auth/getprojectManager'; 
+        const userType = localStorage.getItem('userType');
 
-        const response = await axios.get(url, {
+        // Check if userType is not null or undefined before using it
+        if (!userType) {
+          console.error('User type not found in localStorage.');
+          setLoading(false);
+          return;
+        }
+
+        // const authToken = localStorage.getItem(`${userType}Token`);
+        // console.log(`${userType} authToken:`, authToken);
+
+        const authToken = localStorage.getItem('authToken');
+        console.log('authToken:', authToken);
+
+        const response = await axios.get('http://localhost:5001/auth/getprojectManager', {
           headers: {
-            Authorization: adminToken,
+            Authorization: authToken,
           },
         });
+
         console.log('response', response);
         console.log('responsedata', response.data);
         setProjectManagers(response.data);
-        console.log('Project Managers:', projectManagers);
       } catch (error) {
         console.error('Error fetching project managers:', error);
-         setProjectManagers([]);
-      }finally {
+        setProjectManagers([]);
+      } finally {
         setLoading(false);  // Set loading to false, regardless of success or failure.
       }
     };
 
     fetchProjectManagers();
   }, []);
-
-
 
   return (
     <div className='leaderboard_container'>
@@ -47,24 +56,22 @@ function Managerlist() {
         </header>
 
         <main className="leaderboard__profiles">
-         {loading ? (
+          {loading ? (
             <p>Loading...</p>
           ) : (
             projectManagers && projectManagers.length > 0 ? (
               projectManagers.map((manager) => (
                 <article key={manager._id} className="leaderboard__profile">
-                 <div className="">
-                        <AccountCircleIcon />
-                 </div>
-                 <span className="leaderboard__name">{manager.username}</span>
+                  <div className="">
+                    <AccountCircleIcon />
+                  </div>
+                  <span className="leaderboard__name">{manager.username}</span>
                 </article>
               ))
             ) : (
               <p>No project managers available.</p>
             )
           )}
-
-         
         </main>
       </article>
     </div>

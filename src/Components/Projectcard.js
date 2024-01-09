@@ -10,19 +10,32 @@ import axios from 'axios';
 
 function Projectcard({ projectId }) {
   const [project, setProject] = useState(null);
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const adminToken = localStorage.getItem('adminToken');
-        console.log('token', adminToken);
+        const authToken = localStorage.getItem('authToken');
+        console.log('authToken:', authToken);
         const response = await axios.get(`http://localhost:5001/projects/`, {
           headers: {
-            Authorization: adminToken,
+            Authorization: authToken,
           },
         });
-       // console.log('res', response.data);
+        // console.log('res', response.data);
         setProject(response.data.projects);
+        
+
+        // Make an additional API call to get the user role from the backend
+        const userRoleResponse = await axios.get('http://localhost:5001/auth/role', {
+          headers: {
+            Authorization: authToken,
+          },
+        });
+
+        if (userRoleResponse.data && userRoleResponse.data.role) {
+          setUserRole(userRoleResponse.data.role);
+        }
       } catch (error) {
         console.error('Error fetching project details:', error);
       }
@@ -30,24 +43,30 @@ function Projectcard({ projectId }) {
 
     fetchProjectDetails();
   }, [projectId]);
+    
 
-  const deleteProject = async (projectId) => {
+ const deleteProject = async (projectId) => {
     try {
+      if (userRole !== 'admin') {
+        alert('Only admin can remove the project.');
+        return;
+      }
 
       const isConfirmed = window.confirm('Are you sure you want to delete this project?');
 
-    // If the user clicks "Cancel", do nothing
+      // If the user clicks "Cancel", do nothing
       if (!isConfirmed) {
         return;
       }
-      const adminToken = localStorage.getItem('adminToken');
+
+      const adminToken = localStorage.getItem('authToken');
       await axios.delete(`http://localhost:5001/projects/${projectId}/delete`, {
         headers: {
           Authorization: adminToken,
         },
       });
 
-      alert('project removed');
+      alert('Project removed');
       // Update the state after deletion
       setProject((prevProjects) => prevProjects.filter((project) => project._id !== projectId));
     } catch (error) {
@@ -74,6 +93,7 @@ function Projectcard({ projectId }) {
               <h5 className="Procard-title">{currentProject.name}</h5>
               <hr />
               <p className="Procard-text">{currentProject.description}</p>
+              <p className="Procard-text">Created by: {currentProject.admin.username}</p>
             </div>
             <div className="Procard-footer">
               <div className="Procard-footerleft">
@@ -98,7 +118,7 @@ function Projectcard({ projectId }) {
                   </Link>
                 </div>
                 <div>
-                  <Link to="/class">
+                  <Link to={{ pathname: `/class`, search: `projectId=${currentProject._id}`,}}>
                     <ArrowRightAltIcon />
                   </Link>
                 </div>
@@ -106,7 +126,6 @@ function Projectcard({ projectId }) {
             </div>
           </div>
 
-          
         </div>
       </div>
     

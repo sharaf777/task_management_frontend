@@ -1,74 +1,109 @@
-import React from 'react';
-import '../Styles/Projectlist.css';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-function Classlist() {
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import '../Styles/Projectlist.css'; // Make sure to update the import path
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import axios from 'axios';
+
+const ClassList = ({ projectId, classId }) => {
+  const [members, setMembers] = useState([]);
+  const location = useLocation();
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const authToken = localStorage.getItem('authToken');
+        console.log('authToken:', authToken);
+        console.log('projectId:', projectId);
+        console.log('classId:', classId);
+
+        if (projectId && classId) {
+          const response = await axios.get(`http://localhost:5001/class/${projectId}/${classId}/getUsers`, {
+            headers: {
+              Authorization: authToken,
+            },
+          });
+          console.log('Response:', response);
+          console.log('Response Data:', response.data);
+
+          //console.log('memers:', response.data.username);
+          setMembers(response.data.users);
+        } else {
+          console.log('Project ID or Class ID is null or undefined. Skipping API call.');
+        }
+      } catch (error) {
+        console.error('Error fetching members:', error);
+      }
+    };
+
+    fetchMembers();
+  }, [projectId, classId]); // Include projectId and classId in the dependency array
+
+  const handleRemoveMember = async (memberId) => {
+  try {
+    const adminToken = localStorage.getItem('authToken');
+    console.log('Admin Token:', adminToken);
+     console.log('Before axios.delete');
+
+    const response = await axios.delete(
+      `http://localhost:5001/class/${projectId}/${classId}/delete`,
+      {
+        headers: {
+          Authorization: adminToken,
+        },
+         data: {
+          deletedUsers: [memberId],
+        },
+      }
+    );
+      console.log('After axios.delete');
+    console.log('Server Response:', response);
+
+    // Manually filter out the removed member from the state
+    setMembers((prevMembers) =>
+      prevMembers.filter((member) => member._id !== memberId)
+    );
+  } catch (error) {
+    console.error('Error removing member:', error);
+    // Handle error, e.g., show an error message to the user
+  }
+};
+
+
   return (
     <div className='body-list'>
-        <section class="app-list">
-        <aside class="sidebar">
-                <header>
-                Class Name
-            </header>
-            <nav class="sidebar-nav">
-        
+      <section className="app-list">
+        <aside className="sidebar">
+          <header>
+            Class Name
+          </header>
+          <nav className="sidebar-nav">
             <ul>
-                <li>
-                <a href="#"><i class="ion-bag"></i> <span>Users</span></a>
-                <ul class="nav-flyout">
-                    <li>
-                    <a href="#"><i class="ion-ios-color-filter-outline"></i>Manger1</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-clock-outline"></i>Manger2</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-android-star-outline"></i>Manager3</a>
-                    </li>
+              <li>
+                <div className="sidebar-navItem">Members</div>
+                <ul className="nav-flyout">
+                  {members && members.length > 0 ? (
+                    members.map((member) => (
+                      <li key={member._id}>
+                        <a href="#">
+                          <div className="sidebar-navName" console>{member.username}</div>
+                          <div className="sidebar-navIcon" onClick={() => handleRemoveMember(member._id)}>
+                            <PersonRemoveIcon />
+                          </div>
+                        </a>
+                          {console.log('mebername',member.username)}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="sidebar-navName">No members found.</li>
+                  )}
                 </ul>
-                </li>
-                <li>
-                <a href="#"><i class="ion-ios-settings"></i> <span class="">Tasks</span></a>
-                <ul class="nav-flyout">
-                    <li>
-                    <a href="#"><i class="ion-ios-alarm-outline"></i>class1</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-camera-outline"></i>Class2</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-chatboxes-outline"></i>class3</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-cog-outline"></i>class4</a>
-                    </li>
-                </ul>
-                </li>
-                <li>
-                <a href="#"><i class="ion-ios-briefcase-outline"></i> <span class="">Users</span></a>
-                <ul class="nav-flyout">
-                    <li>
-                    <a href="#"><i class="ion-ios-flame-outline"></i>User1</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-lightbulb-outline"></i>User2</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-location-outline"></i>User3</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-locked-outline"></i>User4</a>
-                    </li>
-                    <li>
-                    <a href="#"><i class="ion-ios-navigate-outline"></i>User5</a>
-                    </li>
-                </ul>
-                </li>
+              </li>
             </ul>
-            </nav>
+          </nav>
         </aside>
-        </section>
+      </section>
     </div>
-  )
-}
+  );
+};
 
-export default Classlist
+export default ClassList;

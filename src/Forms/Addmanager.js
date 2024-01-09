@@ -18,7 +18,7 @@ function AddManager() {
   const handleAddManagerProject = async (selectedManager) => {
     try {
       const projectId = new URLSearchParams(location.search).get('projectId');
-      const adminToken = localStorage.getItem('adminToken');
+      const adminToken = localStorage.getItem('authToken');
 
       console.log('Request Payload:', {
   projectManagerNames: [selectedManager.username],

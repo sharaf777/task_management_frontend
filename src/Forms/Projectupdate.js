@@ -15,7 +15,7 @@ function Projectupdate() {
   useEffect(() => {
     const fetchProjectData = async () => {
       try {
-        const adminToken = localStorage.getItem('adminToken');
+        const adminToken = localStorage.getItem('authToken');
         const response = await axios.get(`http://localhost:5001/projects/${projectId}`, {
           headers: {
             Authorization: adminToken,
@@ -36,7 +36,7 @@ function Projectupdate() {
 
  const handleUpdate = async () => {
   try {
-    const adminToken = localStorage.getItem('adminToken');
+    const adminToken = localStorage.getItem('authToken');
     const updateData = {};
 
     if (name !== '') {
