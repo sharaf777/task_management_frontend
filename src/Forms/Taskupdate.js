@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../Styles/Projectcreate.css';
 import axios from 'axios';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Taskupdate() {
   const [name, setName] = useState('');
@@ -95,10 +97,29 @@ function Taskupdate() {
     );
 
     console.log('Task updated successfully');
-    alert('Task updated successfully');
+    toast.success("Task updated successfully",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     navigate('/tasks');
   } catch (error) {
     console.error('Error updating task:', error);
+    toast.error("Error occured in updating task",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        }); 
   }
 };
 

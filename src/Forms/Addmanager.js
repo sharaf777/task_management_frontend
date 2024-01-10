@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../Styles/Projectcreate.css';
 import axios from 'axios';
 import SearchManager from '../Components/SearchManger';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddManager() {
   const [projectName, setProjectName] = useState('');
@@ -37,15 +39,44 @@ function AddManager() {
 
         // Handle success, e.g., show a success message or redirect to another page
         console.log('Project manager added successfully');
-        alert('Project manager added successfully');
+        toast.success("Project manager added successfully",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
 
         navigate('/');
       } else {
         console.error('No manager selected');
+        toast.warning("No manager selected",{
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
       }
     } catch (error) {
       console.error('Error adding project manager:', error);
       // Handle error, e.g., show an error message to the user
+      toast.error("Error occured in adding manager",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   };
 

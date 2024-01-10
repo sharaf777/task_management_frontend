@@ -34,7 +34,7 @@ const Class = (props) => {
   console.log('project id in class', projectId);
 
   if (!location.state || !location.state.projectId) {
-    console.error('Project ID is missing in location state.');
+    //console.error('Project ID is missing in location state.');
     // Handle this case as needed, such as redirecting the user or showing an error message.
     return;
   }

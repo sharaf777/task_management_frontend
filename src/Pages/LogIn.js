@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/LogIn.css';
-import { useToast } from "@chakra-ui/toast";
+//import { useToast } from "@chakra-ui/toast";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function LogIn() {
   const [loginData, setLoginData] = useState({
@@ -13,7 +16,7 @@ function LogIn() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const toast = useToast();
+  //const toast = useToast();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,25 +35,48 @@ const handleLogin = async () => {
       // Save the token to localStorage or sessionStorage
       localStorage.setItem('authToken', res.data.token);
 
-    toast({
-      title: "Success",
-      description: "Login Successful!",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-      position: "bottom-left",
-    });
+    toast.success("Login Successful!",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        }
+    );
 
     setTimeout(() => {
-      setLoading(false);
+     
       navigate('/');
     }, 2000);
   } catch (error) {
     console.error(`Error during login:`, error);
     if (error.response && error.response.status === 401) {
       setError('Invalid credentials');
+      toast.error("Invalid credentials",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     } else {
       setError(`${loginData.userType} login failed. Please try again.`);
+      toast.error("login failed. Please try again",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
     setLoading(false);
   }

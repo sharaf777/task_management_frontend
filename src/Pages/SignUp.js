@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/LogIn.css';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -25,8 +27,17 @@ function SignUp() {
       console.log(userData);
       console.log(res);
       
-      // Show success alert
-      alert('Signup successful!');
+      // Show success 
+      toast.success("Admin registerd successfully!",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
       
       // Navigate to the home page
       navigate("/login");
@@ -42,7 +53,16 @@ function SignUp() {
       } else {
         // Show a general error message
         setError('Signup failed. Please try again.');
-        alert('Signup failed!');
+        toast.error("Admin registerd failed!",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        }); 
       }
     }
   };

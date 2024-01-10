@@ -7,6 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { Link } from 'react-router-dom';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Classcard({ projectId }) {
   const [classes, setClasses] = useState([]);
@@ -54,7 +56,16 @@ function Classcard({ projectId }) {
   const deleteClass = async (classId) => {
     try {
       if (userRole !== 'projectManager') {
-        alert('Only project managers can remove classes.');
+        toast.warning("Only project managers can remove classes.",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        })
         return;
       }
 
@@ -72,11 +83,31 @@ function Classcard({ projectId }) {
         },
       });
 
-      alert('Class removed');
+       toast.success("Class removed",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+      
       // Update the state after deletion
       setClasses((prevClasses) => prevClasses.filter((classItem) => classItem._id !== classId));
     } catch (error) {
       console.error('Error deleting class:', error);
+      toast.error("Error occured in deleting class",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });      
     }
   };
 

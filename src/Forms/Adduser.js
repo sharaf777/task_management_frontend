@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../Styles/Projectcreate.css';
 import axios from 'axios';
 import SearchUser from '../Components/Searchuser';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddUserToClass() {
   const [className, setClassName] = useState('');
@@ -50,7 +52,17 @@ const handleAddUsersToClass = async (selectedUser) => {
 
       // Handle success, e.g., show a success message or redirect to another page
       console.log('Users added to class successfully');
-      alert('Users added to class successfully');
+      
+      toast.success("Users added to class",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
 
       navigate('/class?projectId=${yourProjectId}');
     } else {
@@ -58,6 +70,16 @@ const handleAddUsersToClass = async (selectedUser) => {
     }
   } catch (error) {
     console.error('Error adding users to class:', error);
+    toast.error("Error occured in adding users to class",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     // Handle error, e.g., show an error message to the user
   }
 };

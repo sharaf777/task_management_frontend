@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../Styles/Projectcreate.css';
 import axios from 'axios';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Classupdate() {
   const [name, setName] = useState('');
@@ -69,11 +71,30 @@ function Classupdate() {
 
       // Handle success, e.g., show a success message or redirect to another page
       console.log('Class updated successfully');
-      alert('Class updated successfully');
+      toast.success("Class updated successfully",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        }); 
       navigate('/class');
     } catch (error) {
       console.error('Error updating class:', error);
       // Handle error, e.g., show an error message to the user
+      toast.error("Error occured in updating class",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });  
     }
   };
 

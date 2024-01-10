@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../Styles/Projectcreate.css';
 import axios from 'axios';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Projectupdate() {
   const [name, setName] = useState('');
@@ -65,11 +67,31 @@ function Projectupdate() {
 
     // Handle success, e.g., show a success message or redirect to another page
     console.log('Project updated successfully');
-    alert('Project updated successfully');
+     toast.success("Project updated successfully",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });  
+
     navigate('/');
   } catch (error) {
     console.error('Error updating project:', error);
     // Handle error, e.g., show an error message to the user
+    toast.error("Error occured in updating project",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });  
   }
 };
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/LogIn.css';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ManagerRegister() {
   const [managerData, setManagerData] = useState({
@@ -37,7 +39,16 @@ function ManagerRegister() {
       console.log(res);
       
       // Show success alert
-      alert('Project Manager registered successfully!');
+       toast.success("Project Manager registered successfully!",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });   
       
       // Navigate to the home page
       navigate("/");
@@ -53,7 +64,16 @@ function ManagerRegister() {
       } else {
         // Show a general error message
         setError('Manager registration failed. Please try again.');
-        alert('Manager registration failed!');
+        toast.error("Manager registration failed!",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });  
       }
     }
   };

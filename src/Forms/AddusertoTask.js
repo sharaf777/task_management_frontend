@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SearchClassUser from '../Components/SearchClassUser';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddUserToTask() {
   const [taskTitle, setTaskTitle] = useState('');
@@ -38,15 +40,44 @@ function AddUserToTask() {
 
         // Handle success, e.g., show a success message or redirect to another page
         console.log('Users added to task successfully');
-        alert('Users added to task successfully');
+        toast.success("Users added to task successfully",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
 
         navigate(`/tasks?projectId=${projectId}`);
       } else {
         console.error('No user selected');
+        toast.warning("No user selected",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
       }
     } catch (error) {
       console.error('Error adding users to task:', error);
       // Handle error, e.g., show an error message to the user
+      toast.error("Error adding users to task",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   };
 

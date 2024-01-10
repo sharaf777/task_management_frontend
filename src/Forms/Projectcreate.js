@@ -3,6 +3,8 @@ import '../Styles/Projectcreate.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SearchManager from '../Components/SearchManger';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Projectcreate() {
   const [projectName, setProjectName] = useState('');
@@ -37,7 +39,16 @@ function Projectcreate() {
 
       // Handle successful project creation
       console.log('Project created successfully:', response.data);
-      alert('Project created successfully!');
+      toast.success("Project created successfully!",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });  
 
       // Reset form fields and selected managers after project creation
       setProjectName('');
@@ -48,6 +59,16 @@ function Projectcreate() {
       navigate('/'); // Example: Redirect to the dashboard page
     } catch (error) {
       console.error('Error during project creation:', error);
+       toast.error("Error occured in creating class",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        }); 
 
       // Handle errors as needed
     }

@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import SearchClassUser from '../Components/SearchClassUser';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Taskcreate = () => {
   const [taskName, setTaskName] = useState('');
@@ -85,7 +87,16 @@ const Taskcreate = () => {
 
     // Handle successful task creation
     console.log('Task added to class successfully:', response.data);
-    alert('Task added to class successfully!');
+    toast.success("Task added to class",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
 
     // Reset form fields after task creation
     setTaskName('');
@@ -98,6 +109,16 @@ const Taskcreate = () => {
   } catch (error) {
     console.error('Error during task creation:', error);
     // Handle errors as needed
+     toast.error("Error occured in creating task",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        }); 
   }
 };
 
@@ -149,7 +170,7 @@ const Taskcreate = () => {
               type="date"
               placeholder=" "
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => setDate(new Date(e.target.value).toLocaleDateString('en-CA'))}
               required
             />
             <div className="cut">Date</div>

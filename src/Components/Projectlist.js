@@ -6,14 +6,36 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import axios from 'axios';
 
 const Projectlist = ({ projectId }) => {
+  const [projectDetails, setProjectDetails] = useState({});
   const [projectManagers, setProjectManagers] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
+    const fetchProjectDetails = async () => {
+      try {
+        const authToken = localStorage.getItem('authToken');
+        console.log('authToken:', authToken);
+
+        if (projectId) {
+          const response = await axios.get(`http://localhost:5001/projects/${projectId}`, {
+            headers: {
+              Authorization: authToken,
+            },
+          });
+          console.log('projectdetals:', response.data);
+          setProjectDetails(response.data.project); // Assuming your API response has project details
+        } else {
+          console.log('Project ID is null or undefined. Skipping API call.');
+        }
+      } catch (error) {
+        console.error('Error fetching project details:', error);
+      }
+    };
+
     const fetchProjectManagers = async () => {
       try {
-      const authToken = localStorage.getItem('authToken');
-      console.log('authToken:', authToken);
+        const authToken = localStorage.getItem('authToken');
+        console.log('authToken:', authToken);
 
         if (projectId) {
           const response = await axios.get(`http://localhost:5001/projects/${projectId}/getAllManagers`, {
@@ -31,48 +53,43 @@ const Projectlist = ({ projectId }) => {
       }
     };
 
+    fetchProjectDetails();
     fetchProjectManagers();
-  }, [projectId]); // Include projectId in the dependency array to fetch managers when projectId changes
+  }, [projectId]);
 
-const handleRemoveManager = async (managerId) => {
-  try {
-    const adminToken = localStorage.getItem('authToken');
-    console.log('Admin Token:', adminToken);
+  const handleRemoveManager = async (managerId) => {
+    try {
+      const adminToken = localStorage.getItem('authToken');
+      console.log('Admin Token:', adminToken);
 
-    console.log('Before axios.delete');
+      await axios.delete(
+        `http://localhost:5001/projects/${projectId}/removeProjectManager`,
+        {
+          headers: {
+            Authorization: adminToken,
+          },
+          data: {
+            projectManagerNames: [managerId],
+          },
+        }
+      );
 
-    await axios.delete(
-      `http://localhost:5001/projects/${projectId}/removeProjectManager`,
-      {
-        headers: {
-          Authorization: adminToken,
-        },
-        data: {
-          projectManagerNames: [managerId],
-        },
-      }
-    );
-
-    console.log('After axios.delete');
-
-    // Manually filter out the removed manager from the state
-    setProjectManagers((prevManagers) =>
-      prevManagers.filter((manager) => manager._id !== managerId)
-    );
-  } catch (error) {
-    console.error('Error removing project manager:', error);
-    // Handle error, e.g., show an error message to the user
-  }
-};
-
-
+      // Manually filter out the removed manager from the state
+      setProjectManagers((prevManagers) =>
+        prevManagers.filter((manager) => manager._id !== managerId)
+      );
+    } catch (error) {
+      console.error('Error removing project manager:', error);
+      // Handle error, e.g., show an error message to the user
+    }
+  };
 
   return (
     <div className='body-list'>
       <section className="app-list">
         <aside className="sidebar">
           <header>
-            Project Name
+            <div>{projectDetails.name}</div>
           </header>
           <nav className="sidebar-nav">
             <ul>

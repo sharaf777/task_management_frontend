@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../Styles/Projectcreate.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Classcreate = () => {
   const [projectName, setProjectName] = useState('');
@@ -68,7 +70,16 @@ const projectId = new URLSearchParams(location.search).get('projectId');
 
       // Handle successful class creation
       console.log('Class created successfully:', response.data);
-      alert('Class created successfully!');
+      toast.success("Class created successfully!",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
 
       // Reset form fields and selected managers after class creation
       setClassName('');
@@ -79,6 +90,16 @@ const projectId = new URLSearchParams(location.search).get('projectId');
       navigate('/class'); // Example: Redirect to the dashboard page
     } catch (error) {
       console.error('Error during class creation:', error);
+      toast.error("Error occured in creating class",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        }); 
 
       // Handle errors as needed
     }
