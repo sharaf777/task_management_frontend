@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Grid, Button } from '@mui/material';
 import Projectlist from '../Components/Projectlist';
 import AddIcon from '@mui/icons-material/Add';
+import ReplyIcon from '@mui/icons-material/Reply';
 import Classcard from '../Components/Classcard';
 
 const Class = (props) => {
@@ -47,6 +48,9 @@ const Class = (props) => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Grid container spacing={2}>
         <Grid item xs={3}>
+          <Button  style={createButtonStyle}  component={Link}  to={`/`}>
+            Back to project <ReplyIcon />
+          </Button>
           <Button  style={createButtonStyle}  component={Link}  to={`/Create-class?projectId=${projectId}`}>
             Create New class <AddIcon />
           </Button>

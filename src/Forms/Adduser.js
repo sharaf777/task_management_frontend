@@ -64,7 +64,8 @@ const handleAddUsersToClass = async (selectedUser) => {
         theme: "colored",
         });
 
-      navigate('/class?projectId=${yourProjectId}');
+      navigate(`/class?projectId=${projectId}`);
+
     } else {
       console.error('No user selected');
     }

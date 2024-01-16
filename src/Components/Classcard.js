@@ -133,7 +133,7 @@ function Classcard({ projectId }) {
                   <p className="card-text">Created by: {currentClass.createdBy_ProjectManager.username}</p>
                 </div>
                 <div className="card-footer">
-                  <div className="footerleft">Status bar</div>
+                  <div className="footerleft">On progress</div>
                   <div className="footerright">
                     <div>
                       <Link to={`/Update-class?projectId=${projectId}&classId=${currentClass._id}`}>
@@ -145,11 +145,11 @@ function Classcard({ projectId }) {
                         <PersonAddIcon onClick={() => console.log('Add-user projectId:', projectId, 'classId:', currentClass._id)} />
                       </Link>
                     </div>
-                    <div>
+                    {/* <div>
                       <Link to={`/Remove-manager?projectId=${projectId}&classId=${currentClass._id}`}>
                         <PersonRemoveIcon onClick={() => console.log('Remove-manager projectId:', projectId, 'classId:', currentClass._id)} />
                       </Link>
-                    </div>
+                    </div> */}
                     <div>
                       <Link to={{
                               pathname: '/task',

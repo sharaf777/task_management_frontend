@@ -81,7 +81,7 @@ function Classupdate() {
         progress: undefined,
         theme: "colored",
         }); 
-      navigate('/class');
+      navigate(`/class?projectId=${projectId}`);
     } catch (error) {
       console.error('Error updating class:', error);
       // Handle error, e.g., show an error message to the user

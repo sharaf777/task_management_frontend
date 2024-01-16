@@ -143,11 +143,11 @@ function Projectcard({ projectId }) {
                     <PersonAddIcon />
                   </Link>
                 </div>
-                <div>
+                {/* <div>
                   <Link to="/Add-manager">
                     <PersonRemoveIcon />
                   </Link>
-                </div>
+                </div> */}
                 <div>
                   <Link to={{ pathname: `/class`, search: `projectId=${currentProject._id}`,}}>
                     <ArrowRightAltIcon />

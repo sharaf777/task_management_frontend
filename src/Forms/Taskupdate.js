@@ -107,7 +107,7 @@ function Taskupdate() {
         progress: undefined,
         theme: "colored",
         });
-    navigate('/tasks');
+      navigate(`/task?projectId=${projectId}&classId=${classId}`);
   } catch (error) {
     console.error('Error updating task:', error);
     toast.error("Error occured in updating task",{

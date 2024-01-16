@@ -105,7 +105,7 @@ const Taskcreate = () => {
     setDate(null);
 
     // Redirect or perform any other actions after task creation
-    navigate('/tasks'); // Example: Redirect to the tasks page
+     navigate(`/task?projectId=${projectId}&classId=${classId}`); // Example: Redirect to the tasks page
   } catch (error) {
     console.error('Error during task creation:', error);
     // Handle errors as needed

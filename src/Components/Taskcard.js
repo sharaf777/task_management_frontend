@@ -101,11 +101,6 @@ function Taskcard({ projectId, classId }) {
                   </Link>
                 </div>
                 <div>
-                  <Link to="/remove-manager">
-                    <PersonRemoveIcon />
-                  </Link>
-                </div>
-                <div>
                   <Link to={{ pathname: '/taskviewer',
                               search: `?projectId=${projectId}&classId=${classId}&taskId=${task._id}`,
                             }}>
