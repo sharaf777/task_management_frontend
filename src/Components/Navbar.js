@@ -3,6 +3,8 @@ import '../Styles/Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
 function Navbar() {
   const [username, setUsername] = useState(null);
   const navigate =useNavigate();
@@ -40,9 +42,10 @@ function Navbar() {
         <div className="logo-Title">
           <a href="#"><span>Task Manager</span></a>
         </div>
-
+        <input type="radio" name="slider" id="menu-btn"/>
+       <input type="radio" name="slider" id="close-btn"/>
         <ul className="nav-links">
-          <label htmlFor="close-btn" className="btn close-btn"><i className="fas fa-times"></i></label>
+          <label htmlFor="close-btn" className="btn close-btn"><CloseIcon/></label>
           {username ? (
             <>
               <li> <Link className='link'> {username}</Link></li>
@@ -55,7 +58,7 @@ function Navbar() {
             </>
           )}
         </ul>
-        <label htmlFor="menu-btn" className="btn menu-btn"><i className="fas fa-bars"></i></label>
+        <label htmlFor="menu-btn" className="btn menu-btn"><MenuIcon/></label>
       </div>
     </div>
   );

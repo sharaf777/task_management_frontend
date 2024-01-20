@@ -125,6 +125,13 @@
     transform: scale(1.2);
 }
 
+@media (max-width: 600px) {
+    .Procard-container {
+        justify-content: center;
+        align-items: center;
+        display:flex;
+    }
+}
 /* @media (min-width: 420px) {
     .Procard-columns {
         column-count: 2;

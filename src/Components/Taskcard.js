@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../Styles/Classcard.css';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import { Link } from 'react-router-dom';
+
+
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Taskcard({ projectId, classId }) {
   const [tasks, setTasks] = useState([]);
   const [userRole, setUserRole] = useState('');
-
+  const isMember = userRole === 'member';
+  const isManager =userRole === 'projectManager';
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -52,21 +56,86 @@ function Taskcard({ projectId, classId }) {
 
    const deleteTask = async (taskId) => {
     try {
+      if (userRole !== 'member') {
+        toast.warning("Only  User can remove task.",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        })
+        return;
+      }
+
+      const isConfirmed = window.confirm('Are you sure you want to delete this class?');
+
+      // If the user clicks "Cancel", do nothing
+      if (!isConfirmed) {
+        return;
+      }
       const authToken = localStorage.getItem('authToken');
       await axios.delete(`http://localhost:5001/class/${projectId}/${classId}/${taskId}/delete`, {
         headers: {
           Authorization: authToken,
         },
       });
-
+      toast.success("Task removed",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
       // Update the state after deletion
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
     } catch (error) {
       console.error('Error deleting task:', error);
     }
-  };
 
-  
+    };
+
+   const handleStatusChange = async (taskId, newStatus) => {
+    try {
+      console.log('Updating task status. Task ID:', taskId, 'New Status:', newStatus);
+
+      const authToken = localStorage.getItem('authToken');
+      await axios.put(
+        `http://localhost:5001/tasks/${projectId}/${classId}/${taskId}/updateTaskStatus`,
+        { status: newStatus },
+        {
+          headers: {
+            Authorization: authToken,
+          },
+        }
+      );
+
+      // Update the task status in the local state
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task._id === taskId ? { ...task, status: newStatus } : task
+        )
+      );
+
+      toast.success('Task status updated successfully', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    } catch (error) {
+      console.error('Error updating task status:', error);
+    }
+  };
 
   return (
     <div className="card-container">
@@ -84,21 +153,50 @@ function Taskcard({ projectId, classId }) {
               <hr />
             </div>
             <div className="card-footer">
-              <div className="footerleft">{task.status}</div>
+              <div className="footerleft">
+                 <div class="select">
+                  {isMember ? (
+                    <select
+                      value={task.status}
+                      onChange={(e) => handleStatusChange(task._id, e.target.value)}
+                    >
+                      <option value="todo">To Do</option>
+                      <option value="inProgress">In Progress</option>
+                      <option value="completed">Completed</option>
+                    </select>
+                    ) : (
+                      
+                    <select  value={task.status}
+                          onMouseDown={() => toast.warning('Only user can update task.')}
+                          
+                        >
+                          <option value={task.status}>{task.status}</option>
+                        </select>
+                    )}
+                  </div>
+              </div>
               <div className="footerright">
                 <div>
-                  <Link  to={{pathname: '/update-task',
-                              search: `?projectId=${projectId}&classId=${classId}&taskId=${task._id}`,
-                            }}>
+                  {isMember ? (
+                  <Link  to={{pathname: '/update-task',search: `?projectId=${projectId}&classId=${classId}&taskId=${task._id}`,}}>
                     <SettingsSuggestIcon  onClick={() => console.log('tasktoedit taskId:', task._id)}/>
                   </Link>
+                  ) : (
+                    <Link  onClick={() => toast.warning("Only user can update task.")}>
+                      <SettingsSuggestIcon/>
+                  </Link>
+                  )}
                 </div>
                 <div>
-                  <Link  to={{pathname: '/AddTask-user',
-                              search: `?projectId=${projectId}&classId=${classId}&taskId=${task._id}`,
-                            }}>
-                    <PersonAddIcon />
-                  </Link>
+                  {isManager ? (
+                    <Link  to={{pathname: '/AddTask-user', search: `?projectId=${projectId}&classId=${classId}&taskId=${task._id}`}}>
+                      <PersonAddIcon />
+                    </Link>
+                   ) : (
+                     <Link  onClick={() => toast.warning("Only manager can add user to task.")}>
+                      <PersonAddIcon />
+                    </Link>
+                  )}
                 </div>
                 <div>
                   <Link to={{ pathname: '/taskviewer',

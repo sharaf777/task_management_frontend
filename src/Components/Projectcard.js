@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { Link } from 'react-router-dom';
+import Projectcard3 from './projectCard3';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast} from 'react-toastify';
 import axios from 'axios';
@@ -13,6 +14,7 @@ import axios from 'axios';
 function Projectcard({ projectId }) {
   const [project, setProject] = useState(null);
   const [userRole, setUserRole] = useState('');
+  const isAdmin = userRole === 'admin';
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -108,13 +110,13 @@ function Projectcard({ projectId }) {
   if (!project || project.length === 0) {
     return <p>Loading...</p>;
   }
-
+  
   return (
     <div>
       {project.map((currentProject) => (
         <div key={currentProject._id} className="Procard-container">
-   
-        <div className="Procard-columns">
+            <Projectcard3 key={currentProject._id} projectId={currentProject._id} AdminName={currentProject.admin.username}/>
+        {/* <div className="Procard-columns">
           <div className="Procard border-0">
             <div className="position-relative"></div>
             <div className="Procard-body">
@@ -134,20 +136,27 @@ function Projectcard({ projectId }) {
               </div>
               <div className="Procard-footerright">
                 <div>
-                  <Link to={`/Update-project?projectId=${currentProject._id}`}>
-                    <SettingsSuggestIcon />
-                  </Link>
+                  {isAdmin ? (
+                        <Link to={`/Update-project?projectId=${currentProject._id}`}>
+                          <SettingsSuggestIcon />
+                        </Link>
+                      ) : (
+                      <Link onClick={() => toast.warning("Only admin can update project details.")}>
+                        <SettingsSuggestIcon />
+                      </Link>
+                    )}
                 </div>
                 <div>
-                 <Link to={`/Add-manager?projectId=${currentProject._id}&projectName=${encodeURIComponent(currentProject.name)}`}>
-                    <PersonAddIcon />
-                  </Link>
+                  {isAdmin ? (
+                    <Link to={`/Add-manager?projectId=${currentProject._id}&projectName=${encodeURIComponent(currentProject.name)}`}>
+                        <PersonAddIcon />
+                      </Link>
+                    ) : (
+                       <Link onClick={() => toast.warning("Only admin can add project mangers.")}>
+                        <PersonAddIcon />
+                      </Link>
+                    )}
                 </div>
-                {/* <div>
-                  <Link to="/Add-manager">
-                    <PersonRemoveIcon />
-                  </Link>
-                </div> */}
                 <div>
                   <Link to={{ pathname: `/class`, search: `projectId=${currentProject._id}`,}}>
                     <ArrowRightAltIcon />
@@ -157,7 +166,7 @@ function Projectcard({ projectId }) {
             </div>
           </div>
 
-        </div>
+        </div> */}
       </div>
     
     ))}

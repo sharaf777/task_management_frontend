@@ -25,9 +25,9 @@ function AddUserToTask() {
       });
 
       if (selectedUser) {
-        const response = await axios.post(
+        const response = await axios.put(
           `http://localhost:5001/class/${projectId}/${classId}/${taskId}/addUsers`,
-          { addedUsers: [selectedUser.username] },
+          { assignedUsers: [selectedUser.username] },
           {
             headers: {
               Authorization: adminToken,

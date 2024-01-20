@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Classcard({ projectId }) {
   const [classes, setClasses] = useState([]);
   const [userRole, setUserRole] = useState('');
+  const isManager = userRole === 'projectManager';
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -76,6 +77,8 @@ function Classcard({ projectId }) {
         return;
       }
 
+      
+
       const managerToken = localStorage.getItem('authToken');
       await axios.delete(`http://localhost:5001/class/${projectId}/${classId}/deleteclass`, {
         headers: {
@@ -112,7 +115,7 @@ function Classcard({ projectId }) {
   };
 
   if (!classes || classes.length === 0) {
-    return <p style={{fontSize:'38px'}}>You are not authorised Projectmanger to access...</p>;
+    return <p style={{fontSize:'38px'}}>No class has been created yet..</p>;
   }
 
   return (
@@ -136,14 +139,26 @@ function Classcard({ projectId }) {
                   <div className="footerleft">On progress</div>
                   <div className="footerright">
                     <div>
-                      <Link to={`/Update-class?projectId=${projectId}&classId=${currentClass._id}`}>
-                        <SettingsSuggestIcon onClick={() => console.log('Update-class projectId:', projectId, 'classId:', currentClass._id)} />
-                      </Link>
+                      {isManager ? (
+                        <Link className='link' to={`/Update-class?projectId=${projectId}&classId=${currentClass._id}`}> 
+                          <SettingsSuggestIcon onClick={() => console.log('Update-class projectId:', projectId, 'classId:', currentClass._id)} />
+                        </Link> 
+                      ) : (
+                        <Link className='link' onClick={() => toast.warning("Only manager can update class.")}>
+                          <SettingsSuggestIcon  />
+                        </Link>
+                      )}
                     </div>
                     <div>
-                      <Link to={`/Add-user?projectId=${projectId}&classId=${currentClass._id}`}>
-                        <PersonAddIcon onClick={() => console.log('Add-user projectId:', projectId, 'classId:', currentClass._id)} />
-                      </Link>
+                     {isManager ? (
+                          <Link className='link' to={`/Add-user?projectId=${projectId}&classId=${currentClass._id}`}> 
+                            <PersonAddIcon onClick={() => console.log('Add-user projectId:', projectId, 'classId:', currentClass._id)} />
+                          </Link> 
+                        ) : (
+                          <Link className='link' onClick={() => toast.warning("Only manager can asign user.")}>
+                            <PersonAddIcon />
+                          </Link>
+                        )} 
                     </div>
                     {/* <div>
                       <Link to={`/Remove-manager?projectId=${projectId}&classId=${currentClass._id}`}>

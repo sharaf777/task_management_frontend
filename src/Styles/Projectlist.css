@@ -3,6 +3,7 @@
 .body-list {
     font-family: "Lato";
     font-size: 100%;
+    margin-top: 10px;
     overflow-y: scroll;
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
@@ -25,7 +26,7 @@ a {
 }
 
 .app-list {
-    height: 100vh;
+    height: 60vh;
 }
 
 /* Sidebar */

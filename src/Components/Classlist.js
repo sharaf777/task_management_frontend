@@ -4,10 +4,14 @@ import '../Styles/Projectlist.css'; // Make sure to update the import path
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import axios from 'axios';
 
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ClassList = ({ projectId, classId }) => {
   const [className, setClassName] = useState('');
   const [members, setMembers] = useState([]);
   const location = useLocation();
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     const fetchClassDetails = async () => {
@@ -55,13 +59,50 @@ const ClassList = ({ projectId, classId }) => {
         console.error('Error fetching members:', error);
       }
     };
+    const fetchUserRole = async () => {
+      try {
+        const authToken = localStorage.getItem('authToken');
+        const response = await axios.get('http://localhost:5001/auth/role', {
+          headers: {
+            Authorization: authToken,
+          },
+        });
+
+        if (response.data && response.data.role) {
+          setUserRole(response.data.role);
+        }
+      } catch (error) {
+        console.error('Error fetching user role:', error);
+      }
+    };
 
     fetchClassDetails();
     fetchMembers();
+    fetchUserRole();
   }, [projectId, classId]); // Include projectId and classId in the dependency array
 
-  const handleRemoveMember = async (memberId) => {
+  const handleRemoveMember = async (username) => {
     try {
+      if (userRole !== 'projectManager') {
+        toast.warning("Only Manager can remove user from class!",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        })
+        return;
+      }
+
+      const isConfirmed = window.confirm('Are you sure you want to delete this class?');
+
+      // If the user clicks "Cancel", do nothing
+      if (!isConfirmed) {
+        return;
+      }
       const adminToken = localStorage.getItem('authToken');
       console.log('Admin Token:', adminToken);
       console.log('Before axios.delete');
@@ -73,7 +114,7 @@ const ClassList = ({ projectId, classId }) => {
             Authorization: adminToken,
           },
           data: {
-            deletedUsers: [memberId],
+            deletedUsers: [username],
           },
         }
       );
@@ -83,7 +124,7 @@ const ClassList = ({ projectId, classId }) => {
 
       // Manually filter out the removed member from the state
       setMembers((prevMembers) =>
-        prevMembers.filter((member) => member._id !== memberId)
+        prevMembers.filter((member) => member.username !== username)
       );
     } catch (error) {
       console.error('Error removing member:', error);
@@ -108,7 +149,7 @@ const ClassList = ({ projectId, classId }) => {
                       <li key={member._id}>
                         <a href="#">
                           <div className="sidebar-navName">{member.username}</div>
-                          <div className="sidebar-navIcon" onClick={() => handleRemoveMember(member._id)}>
+                          <div className="sidebar-navIcon" onClick={() => handleRemoveMember(member.username)}>
                             <PersonRemoveIcon />
                           </div>
                         </a>

@@ -1,0 +1,28 @@
+.navButton {
+    background-color: #424cbf;
+    border-radius: 12px;
+    border: 0;
+    color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 20px;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 20px;
+    text-align: center;
+    align-items: center;
+    width: 90%;
+}
+.navButton:hover, .navButton:focus {
+    background-color: rgb(40, 61, 245);
+}
+.navButton .link{
+    color: #fff;
+    margin-top: -10px;
+    
+    margin-right: 2px;
+}
+.navButton svg {
+    color: #fff;
+    margin-bottom: -4px;
+}
