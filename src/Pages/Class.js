@@ -6,6 +6,7 @@ import Projectlist from '../Components/Projectlist';
 import AddIcon from '@mui/icons-material/Add';
 import ReplyIcon from '@mui/icons-material/Reply';
 import Classcard from '../Components/Classcard';
+import CommentCreate from '../Components/CommentCreate';
 import '../Styles/Navbutton.css';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
@@ -77,6 +78,7 @@ const Class = (props) => {
         </Grid>
         <Grid item xs={12} sm={6} md={8} lg={9} xl={10}>
           <Classcard projectId={projectId}/>
+          <CommentCreate projectId={projectId} />
         </Grid>
       </Grid>
     </div>
