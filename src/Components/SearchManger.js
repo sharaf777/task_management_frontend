@@ -22,7 +22,7 @@ const SearchManager = (props) => {
 
   try {
     const adminToken = localStorage.getItem('authToken');
-    const adminNameResponse = await axios.get('http://localhost:5001/auth/adminname', {
+    const adminNameResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/adminname`, {
       headers: {
         Authorization: adminToken,
       },
@@ -55,7 +55,7 @@ const SearchManager = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `http://localhost:5001/auth/getprojectManager?search=${search}`;
+      const url = `${process.env.REACT_APP_BACKEND_URL}/auth/getprojectManager?search=${search}`;
       const adminToken = localStorage.getItem('authToken');
       const config = {
         headers: {

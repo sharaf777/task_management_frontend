@@ -37,7 +37,7 @@ const Taskcreate = () => {
         };
 
         // Fetch class details using classId
-        const response = await axios.get(`http://localhost:5001/class/${projectId}/${classId}`, config);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}`, config);
 
         // Update class name state
         setClassName(response.data.selectedClass.name);
@@ -83,7 +83,7 @@ const Taskcreate = () => {
       },
     };
 
-    const response = await axios.put(`http://localhost:5001/class/${projectId}/${classId}/addTask`, requestData, config);
+    const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/addTask`, requestData, config);
 
     // Handle successful task creation
     console.log('Task added to class successfully:', response.data);

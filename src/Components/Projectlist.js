@@ -17,7 +17,7 @@ const Projectlist = ({ projectId }) => {
         console.log('authToken:', authToken);
 
         if (projectId) {
-          const response = await axios.get(`http://localhost:5001/projects/${projectId}`, {
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}`, {
             headers: {
               Authorization: authToken,
             },
@@ -38,7 +38,7 @@ const Projectlist = ({ projectId }) => {
         console.log('authToken:', authToken);
 
         if (projectId) {
-          const response = await axios.get(`http://localhost:5001/projects/${projectId}/getAllManagers`, {
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}/getAllManagers`, {
             headers: {
               Authorization: authToken,
             },
@@ -63,7 +63,7 @@ const Projectlist = ({ projectId }) => {
       console.log('Admin Token:', adminToken);
 
       await axios.delete(
-        `http://localhost:5001/projects/${projectId}/removeProjectManager`,
+        `${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}/removeProjectManager`,
         {
           headers: {
             Authorization: adminToken,

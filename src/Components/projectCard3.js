@@ -39,7 +39,7 @@ function Projectcard3({ projectId, AdminName }) {
       }
 
       const adminToken = localStorage.getItem('authToken');
-      await axios.delete(`http://localhost:5001/projects/${projectId}/delete`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}/delete`, {
         headers: {
           Authorization: adminToken,
         },
@@ -76,7 +76,7 @@ function Projectcard3({ projectId, AdminName }) {
     try {
       const authToken = localStorage.getItem('authToken');
       console.log('projectid',projectId)
-      const response = await axios.get(`http://localhost:5001/projects/${projectId}`, {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}`, {
         headers: {
           Authorization: authToken,
         },
@@ -84,7 +84,7 @@ function Projectcard3({ projectId, AdminName }) {
 
       setProject(response.data.project); // Assuming the response contains a "project" field
 
-      const userRoleResponse = await axios.get('http://localhost:5001/auth/role', {
+      const userRoleResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/role`, {
         headers: {
           Authorization: authToken,
         },
@@ -94,7 +94,7 @@ function Projectcard3({ projectId, AdminName }) {
         setUserRole(userRoleResponse.data.role);
       } 
      // Fetch all project managers
-      const managersResponse = await axios.get(`http://localhost:5001/projects/${projectId}/getAllManagers`, {
+      const managersResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}/getAllManagers`, {
         headers: {
           Authorization: authToken,
         },

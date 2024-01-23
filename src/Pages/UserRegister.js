@@ -21,7 +21,7 @@ function UserRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:5001/auth/userregister";
+      const url = `${process.env.REACT_APP_BACKEND_URL}/auth/userregister`;
 
       // Get the admin token from localStorage or wherever it is stored
       const adminToken = localStorage.getItem('authToken');

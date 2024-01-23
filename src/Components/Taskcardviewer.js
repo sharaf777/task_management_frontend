@@ -17,7 +17,7 @@ function Taskcard({ projectId, classId, taskId }) {
         const authToken = localStorage.getItem('authToken');
        
         if (projectId && classId && taskId) {
-          const response = await axios.get(`http://localhost:5001/class/${projectId}/${classId}/${taskId}/getUsers`, {
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/${taskId}/getUsers`, {
             headers: {
               Authorization: authToken,
             },
@@ -38,7 +38,7 @@ function Taskcard({ projectId, classId, taskId }) {
     const fetchUserRole = async () => {
       try {
         const authToken = localStorage.getItem('authToken');
-        const response = await axios.get('http://localhost:5001/auth/role', {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/role`, {
           headers: {
             Authorization: authToken,
           },
@@ -82,7 +82,7 @@ function Taskcard({ projectId, classId, taskId }) {
     const adminToken = localStorage.getItem('authToken');
      console.log('Members before API call:', members);
     const response = await axios.delete(
-      `http://localhost:5001/class/${projectId}/${classId}/${taskId}/deleteUsers`,
+      `${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/${taskId}/deleteUsers`,
       {
         headers: {
           Authorization: adminToken,

@@ -21,7 +21,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:5001/auth/adminregister";
+      const url = `${process.env.REACT_APP_BACKEND_URL}/auth/adminregister`;
        console.log(userData);
       const res = await axios.post(url, userData);
       console.log(userData);

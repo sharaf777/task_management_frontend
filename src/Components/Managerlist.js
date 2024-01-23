@@ -25,7 +25,7 @@ function Managerlist() {
         const authToken = localStorage.getItem('authToken');
         console.log('authToken:', authToken);
 
-        const response = await axios.get('http://localhost:5001/auth/getprojectManager', {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/getprojectManager`, {
           headers: {
             Authorization: authToken,
           },

@@ -48,7 +48,7 @@ const SearchUser = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `http://localhost:5001/class/${projectId}/${classId}/getUsers`;
+      const url = `${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/getUsers`;
       const adminToken = localStorage.getItem('authToken');
       const config = {
         headers: {

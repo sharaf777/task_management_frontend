@@ -44,7 +44,7 @@ const Taskviewer = (props) =>  {
     const fetchTaskDetails = async () => {
   try {
     const authToken = localStorage.getItem('authToken');
-    const response = await axios.get(`http://localhost:5001/class/${projectId}/${classId}/${taskId}`, {
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/${taskId}`, {
       headers: {
         Authorization: authToken,
       },

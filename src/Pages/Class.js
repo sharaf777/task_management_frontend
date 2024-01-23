@@ -31,7 +31,7 @@ const Class = (props) => {
         const authToken = localStorage.getItem('authToken');
         console.log('authToken:', authToken);
 
-        const userRoleResponse = await axios.get('http://localhost:5001/auth/role', {
+        const userRoleResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/role`, {
           headers: {
             Authorization: authToken,
           },

@@ -26,7 +26,7 @@ function AddUserToTask() {
 
       if (selectedUser) {
         const response = await axios.put(
-          `http://localhost:5001/class/${projectId}/${classId}/${taskId}/addUsers`,
+          `${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/${taskId}/addUsers`,
           { assignedUsers: [selectedUser.username] },
           {
             headers: {

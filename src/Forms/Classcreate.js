@@ -34,7 +34,7 @@ const projectId = new URLSearchParams(location.search).get('projectId');
           },
         };
 
-        const response = await axios.get(`http://localhost:5001/projects/${projectId}`, config);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}`, config);
         setProjectName(response.data.project.name);
       } catch (error) {
         console.error('Error fetching project details:', error);
@@ -66,7 +66,7 @@ const projectId = new URLSearchParams(location.search).get('projectId');
         },
       };
 
-      const response = await axios.put(`http://localhost:5001/class/${projectId}/addClass`, requestData, config);
+      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/addClass`, requestData, config);
 
       // Handle successful class creation
       console.log('Class created successfully:', response.data);

@@ -21,7 +21,7 @@ function ManagerRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:5001/auth/managerregister";
+      const url = `${process.env.REACT_APP_BACKEND_URL}/auth/managerregister`;
 
       // Get the admin token from localStorage or wherever it is stored
        const authToken = localStorage.getItem('authToken');

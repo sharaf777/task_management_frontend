@@ -38,7 +38,7 @@ const handleAddUsersToClass = async (selectedUser) => {
 
     if (selectedUser) {
       const response = await axios.put(
-        `http://localhost:5001/class/${projectId}/${classId}/addUsers`,
+        `${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/addUsers`,
         { addedUsers: [selectedUser.username] },
         {
           headers: {

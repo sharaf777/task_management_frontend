@@ -26,7 +26,7 @@ function LogIn() {
 const handleLogin = async () => {
   setLoading(true);
   try {
-    const url = `http://localhost:5001/auth/${loginData.userType}login`;
+    const url = `${process.env.REACT_APP_BACKEND_URL}/auth/${loginData.userType}login`;
     const res = await axios.post(url, loginData);
 
     
@@ -122,6 +122,7 @@ const handleLogin = async () => {
                   <option value="admin">Admin</option>
                   <option value="manager">Manager</option>
                   <option value="user">User</option>
+                  <option value="member">Member</option>
                 </select>
               </div>
             </div>

@@ -22,7 +22,7 @@ function Taskcard({ projectId, classId }) {
         console.log('projectID',projectId);
         console.log('classId',classId);
         const authToken = localStorage.getItem('authToken');
-        const response = await axios.get(`http://localhost:5001/class/${projectId}/${classId}/getTasks`, {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/getTasks`, {
           headers: {
             Authorization: authToken,
           },
@@ -36,7 +36,7 @@ function Taskcard({ projectId, classId }) {
     const fetchUserRole = async () => {
       try {
         const authToken = localStorage.getItem('authToken');
-        const response = await axios.get('http://localhost:5001/auth/role', {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/role`, {
           headers: {
             Authorization: authToken,
           },
@@ -77,7 +77,7 @@ function Taskcard({ projectId, classId }) {
         return;
       }
       const authToken = localStorage.getItem('authToken');
-      await axios.delete(`http://localhost:5001/class/${projectId}/${classId}/${taskId}/delete`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/${taskId}/delete`, {
         headers: {
           Authorization: authToken,
         },
@@ -106,7 +106,7 @@ function Taskcard({ projectId, classId }) {
 
       const authToken = localStorage.getItem('authToken');
       await axios.put(
-        `http://localhost:5001/tasks/${projectId}/${classId}/${taskId}/updateTaskStatus`,
+        `${process.env.REACT_APP_BACKEND_URL}/tasks/${projectId}/${classId}/${taskId}/updateTaskStatus`,
         { status: newStatus },
         {
           headers: {

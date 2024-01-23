@@ -16,7 +16,7 @@ function Projectcard2({ projectId }) {
       try {
         const adminToken = localStorage.getItem('adminToken');
         console.log('token', adminToken);
-        const response = await axios.get(`http://localhost:5001/projects/`, {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/`, {
           headers: {
             Authorization: adminToken,
           },

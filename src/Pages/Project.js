@@ -22,7 +22,7 @@ useEffect(() => {
       const authToken = localStorage.getItem('authToken');
       console.log('authToken:', authToken);
 
-      const response = await axios.get('http://localhost:5001/projects/', {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/`, {
         headers: {
           Authorization: authToken,
         },
@@ -30,7 +30,7 @@ useEffect(() => {
       console.log("response data", response.data.projects);
       setProjects(response.data.projects);
 
-      const userRoleResponse = await axios.get('http://localhost:5001/auth/role', {
+      const userRoleResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/role`, {
         headers: {
           Authorization: authToken,
         },

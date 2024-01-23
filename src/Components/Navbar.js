@@ -14,7 +14,7 @@ function Navbar() {
     console.log('authToken:', authToken);
 
     if (authToken) {
-      axios.get('http://localhost:5001/auth/username', {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/username`, {
         headers: {
           Authorization: authToken,
         },

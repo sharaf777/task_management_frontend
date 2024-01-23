@@ -35,7 +35,7 @@ function Projectcreate() {
         },
       };
 
-      const response = await axios.put('http://localhost:5001/projects/create', requestData, config);
+      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/projects/create`, requestData, config);
 
       // Handle successful project creation
       console.log('Project created successfully:', response.data);

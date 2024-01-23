@@ -22,7 +22,7 @@ function Classupdate() {
     const fetchClassData = async () => {
       try {
         const authToken = localStorage.getItem('authToken');
-        const response = await axios.post(`http://localhost:5001/class/${projectId}/${classId}/editClass`, {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/editClass`, {
           headers: {
             Authorization: authToken,
           },
@@ -60,7 +60,7 @@ function Classupdate() {
       }
 
       await axios.post(
-        `http://localhost:5001/class/${projectId}/${classId}/editClass`,
+        `${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/editClass`,
         updateData,
         {
           headers: {

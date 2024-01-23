@@ -21,7 +21,7 @@ function Projectcard({ projectId }) {
       try {
         const authToken = localStorage.getItem('authToken');
         console.log('authToken:', authToken);
-        const response = await axios.get(`http://localhost:5001/projects/`, {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/`, {
           headers: {
             Authorization: authToken,
           },
@@ -31,7 +31,7 @@ function Projectcard({ projectId }) {
         
 
         // Make an additional API call to get the user role from the backend
-        const userRoleResponse = await axios.get('http://localhost:5001/auth/role', {
+        const userRoleResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/role`, {
           headers: {
             Authorization: authToken,
           },
@@ -74,7 +74,7 @@ function Projectcard({ projectId }) {
       }
 
       const adminToken = localStorage.getItem('authToken');
-      await axios.delete(`http://localhost:5001/projects/${projectId}/delete`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}/delete`, {
         headers: {
           Authorization: adminToken,
         },

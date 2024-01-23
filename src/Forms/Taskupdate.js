@@ -30,7 +30,7 @@ function Taskupdate() {
     const fetchTaskData = async () => {
       try {
         const authToken = localStorage.getItem('authToken');
-        const response = await axios.get(`http://localhost:5001/class/${projectId}/${classId}/${taskId}`, {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/${taskId}`, {
           headers: {
             Authorization: authToken,
           },
@@ -87,7 +87,7 @@ function Taskupdate() {
     console.log('Request Payload:', { updatedDetails: updateData });
 
     await axios.post(
-      `http://localhost:5001/class/${projectId}/${classId}/${taskId}/editTask`,
+      `${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/${taskId}/editTask`,
       { updatedDetails: updateData }, // Wrap the data in 'updatedDetails'
       {
         headers: {

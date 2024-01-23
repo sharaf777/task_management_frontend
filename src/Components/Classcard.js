@@ -21,7 +21,7 @@ function Classcard({ projectId }) {
         const authToken = localStorage.getItem('authToken');
         console.log('authtiken',authToken);
         console.log('projectID',projectId);
-        const response = await axios.get(`http://localhost:5001/class/${projectId}`, {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}`, {
           headers: {
             Authorization: authToken,
           },
@@ -36,7 +36,7 @@ function Classcard({ projectId }) {
     const fetchUserRole = async () => {
       try {
         const authToken = localStorage.getItem('authToken');
-        const response = await axios.get('http://localhost:5001/auth/role', {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/role`, {
           headers: {
             Authorization: authToken,
           },
@@ -80,7 +80,7 @@ function Classcard({ projectId }) {
       
 
       const managerToken = localStorage.getItem('authToken');
-      await axios.delete(`http://localhost:5001/class/${projectId}/${classId}/deleteclass`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/deleteclass`, {
         headers: {
           Authorization: managerToken,
         },

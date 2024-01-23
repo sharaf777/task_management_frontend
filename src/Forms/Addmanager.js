@@ -28,7 +28,7 @@ function AddManager() {
 
       if (selectedManager) {
         await axios.post(
-          `http://localhost:5001/projects/${projectId}/addProjectManager`,
+          `${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}/addProjectManager`,
           { projectManagerNames: [selectedManager.username] },
           {
             headers: {

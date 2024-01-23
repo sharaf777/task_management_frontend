@@ -18,7 +18,7 @@ function Projectupdate() {
     const fetchProjectData = async () => {
       try {
         const adminToken = localStorage.getItem('authToken');
-        const response = await axios.get(`http://localhost:5001/projects/${projectId}`, {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}`, {
           headers: {
             Authorization: adminToken,
           },
@@ -56,7 +56,7 @@ function Projectupdate() {
     }
 
     await axios.post(
-      `http://localhost:5001/projects/${projectId}/editProject`,
+      `${process.env.REACT_APP_BACKEND_URL}/projects/${projectId}/editProject`,
       updateData,
       {
         headers: {

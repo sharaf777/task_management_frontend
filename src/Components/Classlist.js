@@ -22,7 +22,7 @@ const ClassList = ({ projectId, classId }) => {
         console.log('classId:', classId);
 
         if (projectId && classId) {
-          const response = await axios.get(`http://localhost:5001/class/${projectId}/${classId}`, {
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}`, {
             headers: {
               Authorization: authToken,
             },
@@ -45,7 +45,7 @@ const ClassList = ({ projectId, classId }) => {
         console.log('classId:', classId);
 
         if (projectId && classId) {
-          const response = await axios.get(`http://localhost:5001/class/${projectId}/${classId}/getUsers`, {
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/getUsers`, {
             headers: {
               Authorization: authToken,
             },
@@ -62,7 +62,7 @@ const ClassList = ({ projectId, classId }) => {
     const fetchUserRole = async () => {
       try {
         const authToken = localStorage.getItem('authToken');
-        const response = await axios.get('http://localhost:5001/auth/role', {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/role`, {
           headers: {
             Authorization: authToken,
           },
@@ -108,7 +108,7 @@ const ClassList = ({ projectId, classId }) => {
       console.log('Before axios.delete');
 
       const response = await axios.delete(
-        `http://localhost:5001/class/${projectId}/${classId}/delete`,
+        `${process.env.REACT_APP_BACKEND_URL}/class/${projectId}/${classId}/delete`,
         {
           headers: {
             Authorization: adminToken,
