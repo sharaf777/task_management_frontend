@@ -33,7 +33,7 @@ function Navbar() {
     console.log('Before logout:', localStorage.getItem('authToken'));
   localStorage.removeItem('authToken');
   console.log('After logout:', localStorage.getItem('authToken'));
-    navigate('/head')
+    navigate('/')
   };
 
   return (
@@ -48,7 +48,7 @@ function Navbar() {
           <label htmlFor="close-btn" className="btn close-btn"><CloseIcon/></label>
           {username ? (
             <>
-              <li> <Link className='link'> {username}</Link></li>
+              <li> <Link className='link' to="/dashboard"> {username}</Link></li>
               <li  onClick={handleLogout}> <Link className='link'>Logout</Link></li>
             </>
           ) : (

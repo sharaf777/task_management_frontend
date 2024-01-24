@@ -78,7 +78,7 @@ function Projectupdate() {
         theme: "colored",
         });  
 
-    navigate('/');
+    navigate('/dashboard');
   } catch (error) {
     console.error('Error updating project:', error);
     // Handle error, e.g., show an error message to the user

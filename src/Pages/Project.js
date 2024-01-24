@@ -15,6 +15,7 @@ function Project() {
  const [projects, setProjects] = useState([]);
  const [userRole, setUserRole] = useState('');
  const isAdmin = userRole === 'admin';
+ const isManager = userRole === 'projectManager';
 
 useEffect(() => {
   const fetchProjects = async () => {
@@ -53,27 +54,21 @@ useEffect(() => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-          <button className='navButton' >
-            {isAdmin ? (
-                <Link className='link' to="/create-project"> Create Project</Link>  
-               ) : (
-                 <Link className='link' onClick={() => toast.warning("Only admin can Create project.")}> Create Project</Link>
-               )} <AddIcon/>
-          </button>
-          <button className='navButton' >
-            {isAdmin ? (
-              <Link className='link' to="/Create-manager"> Create Manager</Link> 
-               ) : (
-                 <Link className='link' onClick={() => toast.warning("Only admin can Create manger.")}> Create Manager</Link>
-               )} <AddIcon/>
-          </button>
-          <button className='navButton' >
-            {isAdmin ? (
-            <Link className='link' to="/Create-user"> Create User</Link> 
-             ) : (
-                 <Link className='link' onClick={() => toast.warning("Only admin can Create user.")}> Create User</Link>
-               )} <AddIcon/>
-          </button>
+          {isAdmin && (
+            <button className='navButton' >
+              <Link className='link' to="/create-project"> Create Project <AddIcon/></Link>
+            </button>
+          )}
+          {isAdmin && (
+            <button className='navButton' >
+              <Link className='link' to="/Create-manager"> Create Manager <AddIcon/></Link>
+            </button>
+          )}
+          {(isAdmin || isManager) && (
+            <button className='navButton' >
+              <Link className='link' to="/Create-user"> Create User <AddIcon/></Link>
+            </button>
+          )}
          <Managerlist/>
 
         </Grid>

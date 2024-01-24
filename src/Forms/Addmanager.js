@@ -50,7 +50,7 @@ function AddManager() {
         theme: "colored",
         });
 
-        navigate('/');
+        navigate('/dashboard');
       } else {
         console.error('No manager selected');
         toast.warning("No manager selected",{

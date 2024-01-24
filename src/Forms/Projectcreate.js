@@ -56,7 +56,7 @@ function Projectcreate() {
       setSelectedManagers([]);
 
       // Redirect or perform any other actions after project creation
-      navigate('/'); // Example: Redirect to the dashboard page
+      navigate('/dashboard'); // Example: Redirect to the dashboard page
     } catch (error) {
       console.error('Error during project creation:', error);
        toast.error("Error occured in creating class",{

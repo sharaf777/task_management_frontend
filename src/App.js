@@ -28,14 +28,14 @@ function App() {
         <Routes>
           <Route path="/login" element={<LogIn />} />
           <Route path="/signUp" element={<SignUp />} />
-          <Route path="/" element={<Dashboard />} >
+          <Route path="/dashboard" element={<Dashboard />} >
              <Route index element={<Project/>}/>
              <Route path="class" element={<Class />} />
              <Route path="task" element={<Task />} />
              <Route path="taskviewer" element={<Taskviewer />} />
              <Route path="head" element={<Header />} />
           </Route>
-          <Route path="/head" element={<Header />} />
+          <Route path="/" element={<Header />} />
           <Route path="/Create-manager" element={<ManagerRegister />} />
           <Route path="/Create-user" element={<UserRegister />} />
           <Route path="/Create-project" element={<Projectcreate />} />

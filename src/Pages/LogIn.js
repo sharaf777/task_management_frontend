@@ -49,7 +49,7 @@ const handleLogin = async () => {
 
     setTimeout(() => {
      
-      navigate('/');
+      navigate('/dashboard');
     }, 2000);
   } catch (error) {
     console.error(`Error during login:`, error);
@@ -122,7 +122,6 @@ const handleLogin = async () => {
                   <option value="admin">Admin</option>
                   <option value="manager">Manager</option>
                   <option value="user">User</option>
-                  <option value="member">Member</option>
                 </select>
               </div>
             </div>
