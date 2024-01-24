@@ -43,7 +43,7 @@ const Task = (props) =>  {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
           <button className='navButton' >
-            <Link className='link' to={`/class?projectId=${projectId}`}> Back to class</Link>  <ReplyIcon/>
+            <Link className='link' to={`/dashboard/class?projectId=${projectId}`}> Back to class</Link>  <ReplyIcon/>
           </button> 
           <button className='navButton' >
             <Link className='link' to={`/Create-task?projectId=${projectId}&classId=${classId}`}> Create New task</Link>  <AddIcon/>

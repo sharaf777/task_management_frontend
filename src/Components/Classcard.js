@@ -167,7 +167,7 @@ function Classcard({ projectId }) {
                     </div> */}
                     <div>
                       <Link to={{
-                              pathname: '/task',
+                              pathname: '/dashboard/task',
                               search: `?projectId=${projectId}&classId=${currentClass._id}`,
                             }}>
                               <ArrowRightAltIcon onClick={() => console.log('cardtotask projectId:', projectId, 'cardtotask classId:', currentClass._id)}/>

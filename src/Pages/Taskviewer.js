@@ -73,7 +73,7 @@ const Taskviewer = (props) =>  {
       <Grid container spacing={2}>
         
         <Grid item xs={10}>
-          <Button  style={createButtonStyle}  component={Link}  to={`/task?projectId=${projectId}&classId=${classId}`}>
+          <Button  style={createButtonStyle}  component={Link}  to={`/dashboard/task?projectId=${projectId}&classId=${classId}`}>
              Back to class  <ReplyIcon/>
           </Button>
           <div style={{  fontWeight: 'bold', marginLeft:'10px', marginBottom:'10px' }}>

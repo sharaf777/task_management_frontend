@@ -165,7 +165,7 @@ function Projectcard3({ projectId, AdminName }) {
               )}
             </div>
             <div>
-              <Link to={{ pathname: `/class`, search: `projectId=${project._id}`, }}>
+              <Link to={{ pathname: `/dashboard/class`, search: `projectId=${project._id}`, }}>
                 <ArrowRightAltIcon />
               </Link>
             </div>

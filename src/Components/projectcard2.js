@@ -70,7 +70,7 @@ function Projectcard2({ projectId }) {
                 </Link>
               </div>
               <div>
-                <Link to="/class">
+                <Link to="/dashboard/class">
                   <ArrowRightAltIcon />
                 </Link>
               </div>
@@ -107,7 +107,7 @@ function Projectcard2({ projectId }) {
                 </Link>
               </div>
               <div>
-                <Link to="/class">
+                <Link to="/dashboard/class">
                   <ArrowRightAltIcon />
                 </Link>
               </div>

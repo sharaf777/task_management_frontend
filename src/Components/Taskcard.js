@@ -199,7 +199,7 @@ function Taskcard({ projectId, classId }) {
                   )}
                 </div>
                 <div>
-                  <Link to={{ pathname: '/taskviewer',
+                  <Link to={{ pathname: '/dashboard/taskviewer',
                               search: `?projectId=${projectId}&classId=${classId}&taskId=${task._id}`,
                             }}>
                     <ArrowRightAltIcon onClick={() => console.log('taskcardtoview taskId:', task._id)}/>

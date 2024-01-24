@@ -87,7 +87,7 @@ const projectId = new URLSearchParams(location.search).get('projectId');
       setSelectedManagers([]);
 
       // Redirect or perform any other actions after class creation
-      navigate('/class'); // Example: Redirect to the dashboard page
+      navigate('/dashboard/class'); // Example: Redirect to the dashboard page
     } catch (error) {
       console.error('Error during class creation:', error);
       toast.error("Error occured in creating class",{

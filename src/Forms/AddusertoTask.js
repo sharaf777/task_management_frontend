@@ -51,7 +51,7 @@ function AddUserToTask() {
         theme: "colored",
         });
 
-          navigate(`/task?projectId=${projectId}&classId=${classId}`);
+          navigate(`/dashboard/task?projectId=${projectId}&classId=${classId}`);
       } else {
         console.error('No user selected');
         toast.warning("No user selected",{
