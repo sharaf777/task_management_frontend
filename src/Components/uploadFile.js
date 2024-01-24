@@ -104,9 +104,9 @@ const FileUpload = ({ projectId }) => {
                 <ul>
                   {fileImages.map((fileImage, index) => (
                     <li key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                      {fileImage.isImage ? (
+                      {isImageFile(fileImage) ? (
                         <img
-                          src={fileImage.fileLink}
+                          src={fileImage}
                           alt={`Uploaded File ${index}`}
                           style={{ maxWidth: '200px', margin: '1em' }}
                         />
@@ -115,8 +115,8 @@ const FileUpload = ({ projectId }) => {
                       )}
                       <Button
                         variant="contained"
-                        href={fileImage.fileLink}
-                        download={fileImage.fileName}
+                        href={fileImage}
+                        download={fileImage}
                         style={{ marginLeft: '1em' }}
                       >
                         Download
