@@ -127,7 +127,7 @@ const Taskcreate = () => {
     <div className='form-body'>
       <div className="form">
         <div className="form-title">Create task </div>
-        <div className="form-subtitle">Create new task for {className} </div>
+        {/* <div className="form-subtitle">Create new task for {className} </div> */}
 
         {/* Use the task name input */}
         <div className="input-container ic1">

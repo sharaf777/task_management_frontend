@@ -60,20 +60,16 @@ const Class = (props) => {
           <button className='navButton' >
             <Link className='link' to={`/`}> Back to project</Link>  <ReplyIcon/>
           </button>
-          <button className='navButton' >
-            {isManager ? (
-              <Link className='link' to={`/Create-class?projectId=${projectId}`}> Create New class</Link> 
-            ) : (
-              <Link className='link' onClick={() => toast.warning("Only manager can create class.")}>Create New class</Link>
-            )}<AddIcon /> 
-          </button>
-          <button className='navButton' >
-            {isAdmin ? (
-              <Link className='link' to="/Create-user"> Create User</Link>  
-            ) : (
-              <Link className='link' onClick={() => toast.warning("Only admin can create user.")}>Create User</Link>
-            )}<AddIcon />
-          </button>
+          {isManager && (
+            <button className='navButton' >
+              <Link className='link' to={`/Create-class?projectId=${projectId}`}> Create New class <AddIcon /></Link> 
+            </button>
+          )}
+          {isAdmin && (
+            <button className='navButton' >
+              <Link className='link' to="/Create-user"> Create User <AddIcon /></Link>  
+            </button>
+            )}
           <Projectlist projectId={projectId} />
         </Grid>
         <Grid item xs={12} sm={6} md={8} lg={9} xl={10}>

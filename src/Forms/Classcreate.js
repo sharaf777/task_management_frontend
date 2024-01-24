@@ -109,7 +109,7 @@ const projectId = new URLSearchParams(location.search).get('projectId');
     <div className='form-body'>
       <div className="form">
         <div className="form-title">Create class </div>
-        <div className="form-subtitle">Create new class for {projectName} </div>
+        {/* <div className="form-subtitle">Create new class for {projectName} </div> */}
         
         {/* Use the project name as a read-only input */}
         {/* <div className="input-container ic1">
