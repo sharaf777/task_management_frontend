@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function SignUp() {
   const [userData, setUserData] = useState({
+    email: '',
     username: '',
     password: '',
   });
@@ -74,6 +75,17 @@ function SignUp() {
         <div className="content">
           <form onSubmit={handleSubmit}>
             <div className="user-details">
+              <div className="input-boxLogin">
+                <span className="details">Email</span>
+                <input
+                  type="text"
+                  placeholder="Enter your email"
+                  name="email"
+                  value={userData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
               <div className="input-boxLogin">
                 <span className="details">Username</span>
                 <input

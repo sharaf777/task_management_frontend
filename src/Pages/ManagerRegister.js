@@ -9,6 +9,7 @@ function ManagerRegister() {
   const [managerData, setManagerData] = useState({
     username: '',
     password: '',
+    email: ''
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -85,6 +86,17 @@ function ManagerRegister() {
         <div className="content">
           <form onSubmit={handleSubmit}>
             <div className="user-details">
+              <div className="input-boxLogin">
+                <span className="details">Email</span>
+                <input
+                  type="text"
+                  placeholder="Enter manager's email"
+                  name="email"
+                  value={managerData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
               <div className="input-boxLogin">
                 <span className="details">Username</span>
                 <input
