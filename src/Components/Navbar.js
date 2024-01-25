@@ -33,7 +33,12 @@ function Navbar() {
     console.log('Before logout:', localStorage.getItem('authToken'));
   localStorage.removeItem('authToken');
   console.log('After logout:', localStorage.getItem('authToken'));
-    navigate('/')
+    if (window.location.pathname === '/') {
+      window.location.reload();
+    }
+    else{
+      navigate('/')
+    }
   };
 
   return (
