@@ -47,22 +47,42 @@ function Managerlist() {
         </header>
 
         <main className="leaderboard__profiles">
-         {loading ? (
+//          {loading ? (
+//   <p>Loading...</p>
+// ) : (
+//   projectManagers && projectManagers.length > 0 ? (
+//     projectManagers.map((manager) => (
+//       <article key={manager._id} className="leaderboard__profile">
+//         <div className="">
+//           <AccountCircleIcon />
+//         </div>
+//         <span className="leaderboard__name">{manager.username}</span>
+//       </article>
+//     ))
+//   ) : (
+//     <p>No project managers available!</p>
+//   )
+// )}
+      {loading ? (
   <p>Loading...</p>
 ) : (
   projectManagers && projectManagers.length > 0 ? (
-    projectManagers.map((manager) => (
-      <article key={manager._id} className="leaderboard__profile">
-        <div className="">
-          <AccountCircleIcon />
-        </div>
-        <span className="leaderboard__name">{manager.username}</span>
-      </article>
-    ))
-  ) : (
-    <p>No project managers available!</p>
-  )
+  // Mapping through project managers and rendering each
+  projectManagers.map((manager) => (
+    <article key={manager._id} className="leaderboard__profile">
+      <div className="">
+        <AccountCircleIcon />
+      </div>
+      <span className="leaderboard__name">{manager.username}</span>
+    </article>
+  ))
+) : (
+  // If no project managers available
+  <p>No project managers available!</p>
+)
+
 )}
+
 
 
 
