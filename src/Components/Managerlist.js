@@ -78,7 +78,7 @@ function Managerlist() {
   ))
 ) : (
   // If no project managers available
-  <p>No project managers available!</p>
+  <p>No project managers available! projectManagers.length</p>
 )
 
 )}
